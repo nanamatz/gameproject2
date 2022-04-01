@@ -1,0 +1,3 @@
+int MainGame() {
+	Page1();
+}
