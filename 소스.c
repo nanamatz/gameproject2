@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <malloc.h>
+#include <stdbool.h>
 
 #define UP 1
 #define DOWN 2
@@ -13,6 +14,24 @@
 #define RIGHT 4
 #define SUBMIT 5
 #define READYTOINPUT 6 // 입력을 기다리는 상태
+
+typedef char element;
+
+typedef struct ListNode {
+	element* data;
+	struct ListNode* prelink;
+	struct ListNode* link;
+} ListNode;
+
+ListNode* insert_last(ListNode* head, element* data);
+
+void print_list(ListNode* head);
+
+ListNode* deleted(ListNode* head, ListNode* removed);
+
+ListNode* getdeleteNode(ListNode* head, element* data);
+
+void init(ListNode* head);
 
 typedef struct {
 	int limitMinY; // 홈메뉴 최상단 y값 이 값을 통해 사용자가 맨 위에서 더 이동하려고 하는 상황 해결
@@ -67,6 +86,10 @@ TextLinkedList t1 = { "■■■■■■■■■■■■■■■■■■■
 COORD pos = { 0, 0 }; // X, Y값 구조체
 keyControl keyControlData;
 keyControl keyControlData = { 0, 0, 0, 0 };
+
+bool is_condi = FALSE; // 조건 노드인가
+bool is_leaf = FALSE; // 단말 노드인가
+TreeNode* previous = NULL; //조건을 확인하기 위한 이전 트리 노드 포인터
 
 //노드 선언부
 //격리 생활관
@@ -161,13 +184,13 @@ SelectLinkedList cr_s2 = { "[2]1층으로 이동한다" ,&cr_s3 };
 SelectLinkedList cr_s3 = { "[3]옥상으로 이동한다",&cr_s4 };
 SelectLinkedList cr_s4 = { "[4]동편으로 이동한다" ,NULL };
 
-SelectLinkedList c2_s1 = { "[1]서편으로 도망간다",&cr_s2 };
-SelectLinkedList c2_s2 = { "[2]1층으로 도망간다" ,NULL };
+SelectLinkedList c3_s1 = { "[1]서편으로 도망간다",&c3_s2 };
+SelectLinkedList c3_s2 = { "[2]1층으로 도망간다" ,NULL };
 
-SelectLinkedList c31_s1 = { "[1]서편으로 이동한다",&c31_s2 };
-SelectLinkedList c31_s2 = { "[2]1층으로 이동한다" ,&c31_s3 };
-SelectLinkedList c31_s3 = { "[3]옥상으로 이동한다",&c31_s4 };
-SelectLinkedList c31_s4 = { "[4]동편으로 이동한다" ,NULL };
+SelectLinkedList c21_s1 = { "[1]서편으로 이동한다",&c21_s2 };
+SelectLinkedList c21_s2 = { "[2]1층으로 이동한다" ,&c21_s3 };
+SelectLinkedList c21_s3 = { "[3]옥상으로 이동한다",&c21_s4 };
+SelectLinkedList c21_s4 = { "[4]동편으로 이동한다" ,NULL };
 
 //선택지 서편
 SelectLinkedList w1_s1 = { "[1]1-1반으로 간다",&w1_s2 };
@@ -187,17 +210,27 @@ SelectLinkedList p1_s5 = { "[5]주임원사실로 간다",&p1_s6 };
 SelectLinkedList p1_s6 = { "[6]통신물자 창고로 간다",&p1_s7 };
 SelectLinkedList p1_s7 = { "[7]총기함 실로 간다",&p1_s8 };
 SelectLinkedList p1_s8 = { "[8]중앙복도로 간다",NULL };
-//선택지 옥상
-SelectLinkedList r1_s1 = { "[1]통신망을 개통한다",&r1_s2 };
-SelectLinkedList r1_s2 = { "[1]2층 중앙복도로 내려간다",NULL };
 
+SelectLinkedList p68_s1 = { "[1]숨는다",&p68_s2 };
+SelectLinkedList p68_s2 = { "[2]도망친다",NULL };
+
+//선택지 옥상
+
+SelectLinkedList r2_s1 = { "[1]통신망을 개통한다",&r2_s2 };
+SelectLinkedList r2_s2 = { "[2]2층 중앙복도로 내려간다",NULL };
+
+
+SelectLinkedList r31_s1 = { "[1]통신보안, 여기는 11사단 통신대대, 생존자 1명 대기중, 구조 바람.",&r31_s2 };
+SelectLinkedList r31_s2 = { "[2]여보세요??살려주세요!! 여기 사람이 있다구요!!!",&r31_s3 };
+SelectLinkedList r31_s3 = { "[3]당직 사령한테 연결해.빨리.",&r31_s4 };
+SelectLinkedList r31_s4 = { "[4]제가 통신대대 병장 박전역인데, 지금 옥상에 있거든요? 빨리 구하러 와주세요.빨리요",NULL };
 
 //선택지 공통
-SelectLinkedList explore = { "1.탐색한다",&leave};
-SelectLinkedList leave = { "2.떠난다",NULL };
+SelectLinkedList explore = { "[1]탐색한다",&leave};
+SelectLinkedList leave = { "[2]떠난다",NULL };
 
-SelectLinkedList fight = { "1.맞서 싸운다",&run };
-SelectLinkedList run = { "2.도망간다",NULL };
+SelectLinkedList fight = { "[1]맞서 싸운다",&run };
+SelectLinkedList run = { "[2]도망간다",NULL };
 
 
 
@@ -257,22 +290,22 @@ TextLinkedList cr_t1 = { "//2층 중앙 복도//",&cr_t2 };
 TextLinkedList cr_t2 = { "좀비는 보이지 않는다.",&cr_t3 };
 TextLinkedList cr_t3 = { "일정한 기계음이 조금 더 크게 들린다.",NULL };
 
-TextLinkedList c2_t1 = { "이건 절대 도망치는게 아니다.",&c2_t2 };
-TextLinkedList c2_t2 = { "작전상 후퇴일뿐.",&c2_t3 };
-TextLinkedList c2_t3 = { "아무튼 아니다.",NULL };
+TextLinkedList c3_t1 = { "이건 절대 도망치는게 아니다.",&c3_t2 };
+TextLinkedList c3_t2 = { "작전상 후퇴일뿐.",&c3_t3 };
+TextLinkedList c3_t3 = { "아무튼 아니다.",NULL };
 
-TextLinkedList c3_t1 = { "윤모는 인간이었을 때도 나약했으니 충분히 승산이 있을 것 같다.",NULL };
+TextLinkedList c2_t1 = { "윤모는 인간이었을 때도 나약했으니 충분히 승산이 있을 것 같다.",NULL };
 
 
-TextLinkedList c31_t1 = { "윤모야 미안하다..하지만 어쩔 수 없었다.",&c31_t2 };
-TextLinkedList c31_t2 = { "부러진 대걸레로 숨통을 끊었다.",&c31_t3 };
-TextLinkedList c31_t3 = { "대걸레가 꽂힌 채로 쓰러졌다.",&c31_t4 };
-TextLinkedList c31_t4 = { "더 이상 미동이 없다.",&c31_t5 };
-TextLinkedList c31_t5 = { "이제 다른 곳으로 이동해야 할 것 같다.",NULL };
+TextLinkedList c21_t1 = { "윤모야 미안하다..하지만 어쩔 수 없었다.",&c21_t2 };
+TextLinkedList c21_t2 = { "부러진 대걸레로 숨통을 끊었다.",&c21_t3 };
+TextLinkedList c21_t3 = { "대걸레가 꽂힌 채로 쓰러졌다.",&c21_t4 };
+TextLinkedList c21_t4 = { "더 이상 미동이 없다.",&c21_t5 };
+TextLinkedList c21_t5 = { "이제 다른 곳으로 이동해야 할 것 같다.",NULL };
 
-TextLinkedList c32_t1 = { "무기 없이는 무리인 것 같다.",&c32_t2 };
-TextLinkedList c32_t2 = { "내가 알 던 윤모가 아니다.",&c32_t3 };
-TextLinkedList c32_t3 = { "지금이라도 도망가야 할 것 같다.",NULL };
+TextLinkedList c22_t1 = { "무기 없이는 무리인 것 같다.",&c22_t2 };
+TextLinkedList c22_t2 = { "내가 알 던 윤모가 아니다.",&c22_t3 };
+TextLinkedList c22_t3 = { "지금이라도 도망가야 할 것 같다.",NULL };
 
 //텍스트 서편
 TextLinkedList w1_t1 = { "1소대와 2소대 생활관들이 보인다.",&w1_t2 };
@@ -364,20 +397,22 @@ TextLinkedList p5_t5 = { "내가 보이는 화면에 이상한 형체가 같이 
 TextLinkedList p5_t6 = { "쿠당탕!" ,&p5_t7 };
 TextLinkedList p5_t7 = { "갑자기 뒤에서 좀비 한 마리가 달려든다." ,NULL };
 
-TextLinkedList p51_t1 = { "좀비가 매우 강력하다." ,&p51_t2 };
-TextLinkedList p51_t2 = { "간신히 제압했다." ,&p51_t3 };
-TextLinkedList p51_t3 = { "하마터면 엔딩도 보기전에 죽을 뻔했다." ,&p51_t4 };
-TextLinkedList p51_t4 = { "머리가 조금 찢어진 것 같다." ,&p51_t5 };
-TextLinkedList p51_t5 = { "큰 부상을 입었다." ,NULL };
+TextLinkedList p51_t1 = { "좀비가 매우 강력해보인다." ,NULL };
 
-TextLinkedList p52_t1 = { "맨손으로는 무리인 것 같다." ,&p52_t2 };
-TextLinkedList p52_t2 = { "자세히 보니 주임원사님의 얼굴을 꼭 빼닮은 것 같다." ,&p52_t3 };
-TextLinkedList p52_t3 = { "지금이라도 도망쳐야 할 것 같다." ,&p52_t4 };
-TextLinkedList p52_t4 = { "어라..?점점 의식이 흐려진다." ,&p52_t5 };
-TextLinkedList p52_t5 = { "게임오버" ,NULL };
+TextLinkedList p52_t1 = { "간신히 제압했다." ,&p52_t2 };
+TextLinkedList p52_t2 = { "하마터면 엔딩도 보기전에 죽을 뻔했다." ,&p52_t3 };
+TextLinkedList p52_t3 = { "머리가 조금 찢어진 것 같다." ,&p52_t4 };
+TextLinkedList p52_t4 = { "큰 부상을 입었다." ,NULL };
+
 
 TextLinkedList p53_t1 = { "좀비가 입고있던 전투복에서 [열쇠]를 발견했다." ,&p53_t2 };
 TextLinkedList p53_t2 = { "무슨 열쇠인지는 모르겠다." ,NULL };
+
+TextLinkedList p54_t1 = { "맨손으로는 무리인 것 같다." ,&p54_t2 };
+TextLinkedList p54_t2 = { "자세히 보니 주임원사님의 얼굴을 꼭 빼닮은 것 같다." ,&p54_t3 };
+TextLinkedList p54_t3 = { "지금이라도 도망쳐야 할 것 같다." ,&p54_t4 };
+TextLinkedList p54_t4 = { "어라..?점점 의식이 흐려진다." ,&p54_t5 };
+TextLinkedList p54_t5 = { "게임오버" ,NULL };
 
 TextLinkedList p6_t1 = { "주임 원사실...[부재중]..." ,NULL };
 
@@ -442,31 +477,151 @@ TextLinkedList p82_t1 = { "총기함이 잠겨있다." ,&p82_t2 };
 TextLinkedList p82_t2 = { "총기함키가 필요하다." ,&p82_t3 };
 TextLinkedList p82_t3 = { "인사과에 가면 있을 것이다." ,NULL };
 
+//텍스트 옥상
+TextLinkedList r1_t1 = { "옥상 문이 닫혀있다.",&r1_t2 };
+TextLinkedList r1_t2 = { "[ 관계자 외 출입금지]",&r1_t3 };
+TextLinkedList r1_t3 = { "철컥, 철컥,",&r1_t4 };
+TextLinkedList r1_t4 = { "열쇠가 필요할 것 같다.",NULL };
+
+TextLinkedList r2_t1 = { "옥상에 설치된 안테나 통신 장치들이 반복적인 기계음을 내고 있다.",&r2_t2 };
+TextLinkedList r2_t2 = { "다행히 통신 장비가 작동중인 것 같다.",&r2_t3 };
+TextLinkedList r2_t3 = { "통신망만 개통하면 외부와 연락이 가능할 것이다.",&r2_t4 };
+TextLinkedList r2_t4 = { "우우웅...우우웅...(반복적인 기계음)",NULL };
+
+TextLinkedList r31_t1 = { "[...이더넷 연결중...]",&r31_t2 };
+TextLinkedList r31_t2 = { "[...국방망 연결중...]",&r31_t3 };
+TextLinkedList r31_t3 = { "[...무선 통신 체계 접속중...]",&r31_t4 };
+TextLinkedList r31_t4 = { "[접속 상태: 양호 ]",&r31_t5 };
+TextLinkedList r31_t5 = { "또로로로로로로...또로로로로로로...(신호 대기음) ",&r31_t6 };
+TextLinkedList r31_t6 = { "본부대 상병 김상명, 전화받았습니다~",NULL };
+
+TextLinkedList r32_t1 = { "역시 통신망 연결이 끊겨있다.",&r32_t1 };
+TextLinkedList r32_t2 = { "통신망 개통을 위한 장비는 1층 [통신물자 창고]에 있을 것이다.",&r32_t2 };
+TextLinkedList r32_t3 = { "우우웅...우우웅...(반복적인 기계음)",NULL };
+
+TextLinkedList r3_t1 = { "장비들은 정상적으로 작동하는 것 같다. ",&r3_t2 };
+TextLinkedList r3_t2 = { "통신망을 연결하려면 노트북과 연결 포트가 필요하다.",&r3_t3 };
+TextLinkedList r3_t3 = { "혹시 연결되어 있을 수도..?",NULL };
+
+TextLinkedList r4_t1 = { "뚜...뚜...뚜...",&r4_t2 };
+TextLinkedList r4_t2 = { "연결이 끊어졌다..",&r4_t3 };
+TextLinkedList r4_t3 = { "통신 장비 노드가 노후되어 연결이 불안정한 것 같다.",&r4_t4 };
+TextLinkedList r4_t4 = { " 더 이상 신호가 잡히지 않는다.",NULL };
+
+//텍스트 엔딩
+TextLinkedList h1_t1 = { "어느정도 시간이 흐른 것 같다.",&h1_t2 };
+TextLinkedList h1_t2 = { "점점 석양이 지고, 태양빛이 붉게 무르익어 간다.",&h1_t3 };
+TextLinkedList h1_t3 = { "산 기슭을 훑고 지나오는 바람은 머나먼 곳으로 떠나는 것 같다.",&h1_t4 };
+TextLinkedList h1_t4 = { "여기에 존재하는 것은 나 자신과 좀비...",&h1_t5 };
+TextLinkedList h1_t5 = { "그리고 이제는 성가신 기계음의 반복적인 소음...",&h1_t6 };
+TextLinkedList h1_t6 = { "자신의 영역을 침범하는 낯선 소음과 경쟁하듯 간섭을 이룬다.",&h1_t7 };
+TextLinkedList h1_t7 = { "처음에는 이방인이 열세했지만 시간이 갈 수록 원주민을 압도한다.",&h1_t8 };
+TextLinkedList h1_t8 = { "이제는 더 이상 본래 원주민의 모습은 온데 간데 없고 이방인이 주인 자리를 차지했다.",&h1_t9 };
+TextLinkedList h1_t9 = { ".....도도도도도도도도도도도두도두도두도두도두두두",&h1_t10 };
+TextLinkedList h1_t10 = { "두두두두두두두두두두두두두두두두두두두두두두",&h1_t11 };
+TextLinkedList h1_t11 = { "눈을 떠보니 저 멀리 산 골짜기 위로 희망이 날아오고 있다.",&h1_t12 };
+TextLinkedList h1_t12 = { "구조 헬기다!",&h1_t13 };
+TextLinkedList h1_t13 = { "나는 살았다..",NULL };
+
+TextLinkedList h2_t1 = { "어느정도 시간이 흐른 것 같다.",&h2_t2 };
+TextLinkedList h2_t2 = { "점점 석양이 지고, 태양빛이 붉게 무르익어 간다.",&h2_t3 };
+TextLinkedList h2_t3 = { "산 기슭을 훑고 지나오는 바람은 머나먼 곳으로 떠나는 것 같다.",&h2_t4 };
+TextLinkedList h2_t4 = { "여기에 존재하는 것은 나 자신과 좀비...",&h2_t5 };
+TextLinkedList h2_t5 = { "그리고 이제는 성가신 기계음의 반복적인 소음...",&h2_t6 };
+TextLinkedList h2_t6 = { "자신의 영역을 침범하는 낯선 소음과 경쟁하듯 간섭을 이룬다.",&h2_t7 };
+TextLinkedList h2_t7 = { "처음에는 이방인이 열세했지만 시간이 갈 수록 원주민을 압도한다.",&h2_t8 };
+TextLinkedList h2_t8 = { "이제는 더 이상 본래 원주민의 모습은 온데 간데 없고 이방인이 주인 자리를 차지했다.",&h2_t9 };
+TextLinkedList h2_t9 = { "브브브브브ㅡ브브브브브ㅡ브브브브브ㅡ브브브브브",&h2_t10 };
+TextLinkedList h2_t10 = { "바바바바바ㅡ바바바바바ㅡ바바바바바ㅡ바바바바바",&h2_t11 };
+TextLinkedList h2_t11 = { "눈을 떠보니 저 멀리 산 골짜기 위로 희망이 날아오고 있다.",&h2_t12 };
+TextLinkedList h2_t12 = { "구하러 왔구나!",&h2_t13 };
+TextLinkedList h2_t13 = { "부ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ왕ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ",&h2_t14 };
+TextLinkedList h2_t14 = { "내 머리 위로 굉음을 내며 지나갔다.",&h2_t15 };
+TextLinkedList h2_t15 = { "그리고 내가 마지막으로 본 것은 눈 앞을 뒤 덮는 섬광이었다.",&h2_t16 };
+TextLinkedList h2_t16 = { "삐ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ",&h2_t17 };
+TextLinkedList h2_t17 = { "쿠구구구구구구구구구구구 쿠구구구구구구구구구구구",&h2_t18 };
+TextLinkedList h2_t18 = { "일종의 경련과 함께 눈이 떠졌다.",&h2_t19 };
+TextLinkedList h2_t19 = { "흐어악!",&h2_t20 };
+TextLinkedList h2_t20 = { "심장 박동이 온몸으로 느껴진다.",&h2_t21 };
+TextLinkedList h2_t21 = { "마치 내연 기관이 주체할 수 없을 속도로 펌프질하는 것처럼 과열 상태다.",&h2_t22 };
+TextLinkedList h2_t22 = { "코로나에 걸려서 온 몸에 열이 났던 것 같다.",&h2_t23 };
+TextLinkedList h2_t23 = { "잠에서 일어나니 등이 축축하게 젖어있다.",&h2_t24 };
+TextLinkedList h2_t24 = { "엄마!!나 또 군대 꿈 꿨어!",NULL };
+
+TextLinkedList b1_t1 = { "어느정도 시간이 흐른 것 같다.",&b1_t2 };
+TextLinkedList b1_t2 = { "점점 석양이 지고, 태양빛이 붉게 무르익어 간다.",&b1_t3 };
+TextLinkedList b1_t3 = { "산 기슭을 훑고 지나오는 바람은 머나먼 곳으로 떠나는 것 같다.",&b1_t4 };
+TextLinkedList b1_t4 = { "여기에 존재하는 것은 나 자신과 좀비...",&b1_t5 };
+TextLinkedList b1_t5 = { "그리고 이제는 성가신 기계음의 반복적인 소음...",&b1_t6 };
+TextLinkedList b1_t6 = { "며칠이나 지났을까...좀비들이 옥상 문 앞까지 들랑거리는 소리가 들린다.",&b1_t7 };
+TextLinkedList b1_t7 = { "문은 통신장비들로 막아놔서 들어올 수는 없을 것이다.",&b1_t8 };
+TextLinkedList b1_t8 = { "하지만 나 또한 마찬가지다.",&b1_t9 };
+TextLinkedList b1_t9 = { "그렇다. 정말 빠져나갈 길이 없는 것이다.",&b1_t10 };
+TextLinkedList b1_t10 = { "차라리 폭격을 당해서 시원한 불 비를 맞고 작렬하게 불타고 싶을 정도다.",&b1_t11 };
+TextLinkedList b1_t11 = { "의식은 점점 메말라가는 느낌이다.",&b1_t12 };
+TextLinkedList b1_t12 = { "차라리 좀비한테 먹히는게 더 의미있을 것 같다.",&b1_t13 };
+TextLinkedList b1_t13 = { "하지만 이제는 문을 막아놓은 통신 장비조차 옮길 힘이 없다.",&b1_t14 };
+TextLinkedList b1_t14 = { "이럴때 옥상이라는 장점을 이용하면 되는 것을 깨달았다.",&b1_t15 };
+TextLinkedList b1_t15 = { "머리부터 자유 낙하를 했다.",&b1_t16 };
+TextLinkedList b1_t16 = { "콰직!",NULL };
+
+
+TextLinkedList b2_t1 = { "어느정도 시간이 흐른 것 같다.",&h2_t2 };
+TextLinkedList b2_t2 = { "점점 석양이 지고, 태양빛이 붉게 무르익어 간다.",&h2_t3 };
+TextLinkedList b2_t3 = { "산 기슭을 훑고 지나오는 바람은 머나먼 곳으로 떠나는 것 같다.",&h2_t4 };
+TextLinkedList b2_t4 = { "여기에 존재하는 것은 나 자신과 좀비...",&h2_t5 };
+TextLinkedList b2_t5 = { "그리고 이제는 성가신 기계음의 반복적인 소음...",&h2_t6 };
+TextLinkedList b2_t6 = { "자신의 영역을 침범하는 낯선 소음과 경쟁하듯 간섭을 이룬다.",&h2_t7 };
+TextLinkedList b2_t7 = { "처음에는 이방인이 열세했지만 시간이 갈 수록 원주민을 압도한다.",&h2_t8 };
+TextLinkedList b2_t8 = { "이제는 더 이상 본래 원주민의 모습은 온데 간데 없고 이방인이 주인 자리를 차지했다.",&h2_t9 };
+TextLinkedList b2_t9 = { "브브브브브ㅡ브브브브브ㅡ브브브브브ㅡ브브브브브",&h2_t10 };
+TextLinkedList b2_t10 = { "바바바바바ㅡ바바바바바ㅡ바바바바바ㅡ바바바바바",&h2_t11 };
+TextLinkedList b2_t11 = { "눈을 떠보니 저 멀리 산 골짜기 위로 희망이 날아오고 있다.",&h2_t12 };
+TextLinkedList b2_t12 = { "구하러 왔구나!",&h2_t13 };
+TextLinkedList b2_t13 = { "부ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ왕ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ",&h2_t14 };
+TextLinkedList b2_t14 = { "내 머리 위로 굉음을 내며 지나갔다.",&h2_t15 };
+TextLinkedList b2_t15 = { "그리고 내가 마지막으로 본 것은 눈 앞을 뒤 덮는 섬광이었다.",&h2_t16 };
+TextLinkedList b2_t16 = { "삐ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ",&h2_t17 };
+TextLinkedList b2_t17 = { "쿠구구구구구구구구구구구 쿠구구구구구구구구구구구",&h2_t18 };
+TextLinkedList b2_t18 = { "일종의 경련과 함께 눈이 떠졌다.",&h2_t19 };
+TextLinkedList b2_t19 = { "흐어악!",&h2_t20 };
+TextLinkedList b2_t20 = { "몸이 홀가분하고 새처럼 가벼워진 것 같다.",&h2_t21 };
+TextLinkedList b2_t21 = { "마치 영혼이라도 된 것처럼 자유로운 느낌이다.",&h2_t22 };
+TextLinkedList b2_t22 = { "정말 그렇다.",&h2_t23 };
+TextLinkedList b2_t23 = { "밑을 보니 잔해물을 이불로 덮고 자고있는 내 모습이 보인다.",&h2_t24 };
+TextLinkedList b2_t24 = { "이런..",NULL };
+
+
+
 //선택지의 수에 따라 링크를 저장한 구조체포인터 배열 생성
 
+TreeNode* ending[2] = { &r6,&r7 }; //엔딩 선택지
 TreeNode* pre[7] = { &p2,&p3,&p4,&p5,&p6,&p7,&p8 };//인사과~총기함실
 TreeNode* west[6] = { &w2,&w3,&w4,&w5,&w6,&w7 };//1-1~2-3반
 TreeNode* center[2] = { &r1,&e1 };//옥상과 동편 주소는 따로 저장
 TreeNode* east[3] = { &e3,&e4,&cr };//세탁실,행정반,중앙복도(첫번째x)
 
 //해피엔딩, 배드 엔딩, 게임오버 일단 오류 피하기 위해서 만들어놓음
-TreeNode happy = { "어느정도 시간이 흐른 것 같다. 반복적인 기계음에 어디선가 저 멀리서부터 낯선 소음 하나가 간섭을 이룬다. 낯선 소리가 기계음을 압도하며 다가온다. 산자락 너머로 구조헬기가 보인다. 살았다.",NULL,NULL };
-TreeNode bad = { "어느정도 시간이 흐른 것 같다.반복적인 기계음에 어디선가 저 멀리서부터 낯선 소음 하나가 간섭을 이룬다. 낯선 소리가 기계음을 압도하며 다가온다. 다수의 헬기가 보인다. 갑자기 굉음과 함께 엄청난 섬광이 눈을 태운다. 진공의 정적만 흐르고 있다. 작은 미사일 하나로 내 발밑에 있는 모든 것을 날려버리기 충분했다.",NULL,NULL };
+TreeNode happy1 = { &h1_t1,NULL,0,NULL,NULL,NULL };
+TreeNode happy2 = { &h2_t1,NULL,0,NULL,NULL,NULL };
+TreeNode bad1 = { &b1_t1,NULL,0,NULL,NULL,NULL };
+TreeNode bad2 = { &b2_t1,NULL,0,NULL,NULL,NULL };
 TreeNode gameover = { "게임오버",NULL,NULL };
 
 //옥상 루트(r)
-TreeNode r1 = { "옥상 문이 닫혀있다. '관계자 외 출입 금지' 철컥, 철컥, 열쇠가 필요할 것 같다.",&r2,&c1 };
-TreeNode r2 = { "옥상에 설치된 안테나 통신 장치들이 반복적인 기계음을 내고 있다. 다행히 통신 장비가 작동중인 것 같다. 통신망만 개통하면 외부와 연락이 가능할 것이다.",&r31,&r32 };
-TreeNode r31 = { " ...이더넷 연결중...국방망 연결중..통신망이 연결 되었다! 신호가 잡힌 것 같다..빨리 구조 요청을 해야한다.",&r41,&r42 };
-TreeNode r32 = { "역시 통신망 연결이 끊겨있다. 통신망 개통을 위한 [노트북]과 [연결 포트]는 1층 [통신물자 창고]에 있을 것이다.",NULL,&c1 };
-TreeNode r41 = { "신호가 끊겼다.통신 장비 노드가 노후되어 연결이 불안정한 것 같다. 더 이상 신호가 잡히지 않는다.",&happy,&r51 };
-TreeNode r42 = { "신호가 끊겼다.통신 장비 노드가 노후되어 연결이 불안정한 것 같다. 더 이상 신호가 잡히지 않는다.",&bad,&r52 };
-TreeNode r51 = { "신호가 끊겼다.통신 장비 노드가 노후되어 연결이 불안정한 것 같다. 더 이상 신호가 잡히지 않는다.",&happy,NULL };
-TreeNode r52 = { "신호가 끊겼다.통신 장비 노드가 노후되어 연결이 불안정한 것 같다. 더 이상 신호가 잡히지 않는다.",&bad,NULL };
+
+TreeNode r1 = { &r1_t1,NULL,0,&r2,&cr,NULL };
+TreeNode r2 = { &r2_t1,&r2_s1,2,&r3,&cr,NULL };
+TreeNode r3 = { &r3_t1,NULL,0,&r31,&r32,NULL };
+TreeNode r31 = { &r31_t1,&r31_s1,4,&r4,&r5,ending };
+TreeNode r32 = { &r32_t1,NULL,0,NULL,&r2,NULL };
+TreeNode r4= {&r4_t1,NULL,0,&bad1,NULL,NULL };
+TreeNode r5 = { &r4_t1,NULL,0,&happy1,NULL ,NULL};
+TreeNode r6 = {&r4_t1,NULL,0,&happy2,NULL,NULL};
+TreeNode r7 = {&r4_t1,NULL,0,&bad2,NULL,NULL};
+
 //1층 루트(p)
 
-SelectLinkedList p68_s1 = { "[1]숨는다",&p68_s2 };
-SelectLinkedList p68_s2 = { "[2]도망친다",NULL };
 
 TreeNode p1 = { &p1_t1,&p1_s1,8,NULL,&cr,pre };//1층 로비
 TreeNode p2 = { &p2_t1,&explore,2,&p21,&p1,NULL };//인사과
@@ -474,10 +629,11 @@ TreeNode p21 = { &p21_t1,NULL,0,NULL,&p1,NULL };
 TreeNode p3 = { &p3_t1,&explore,2,&p31,&p1,NULL };//군수과
 TreeNode p31 = { &p31_t1,NULL,0,NULL,&p1,NULL };
 TreeNode p4 = { &p4_t1,NULL,0,NULL,&p1,NULL };//대대장실
-TreeNode p5 = { &p5_t1,&fight,2,&p51,&p52, NULL };//지휘통제실
-TreeNode p51 = { &p51_t1,&explore,2,&p53,&p1, NULL };
-TreeNode p52 = { &p52_t1,NULL,0,NULL,&gameover, NULL };
-TreeNode p53 = { &p53_t1,NULL,0,NULL,&p1, NULL };
+TreeNode p5 = { &p5_t1,&fight,2,&p51,&p1, NULL };//지휘통제실
+TreeNode p51 = { &p51_t1,NULL,0,&p52,&p54, NULL };
+TreeNode p52 = { &p52_t1,&explore,2,&p53,&p1, NULL };//무기가 있을 경우
+TreeNode p53 = { &p53_t1,NULL,0,NULL,&p1, NULL }; //좀비 처치 후 탐색 -->주임원사실 열쇠 획득
+TreeNode p54 = { &p54_t1,NULL,0,NULL,&gameover, NULL };//무기가 없을 경우
 TreeNode p6 = { &p6_t1,NULL,0,&p61,&p62,NULL };//주임원사실
 TreeNode p61 = { &p61_t1,&explore,2,&p63,&p1,NULL };
 TreeNode p62 = { &p62_t1,NULL,0,NULL,&p1,NULL };
@@ -517,12 +673,13 @@ TreeNode w71 = { &w71_t1,NULL,0,NULL,&w1,NULL };
 
 //2층 중앙 복도(c)
 
-TreeNode cr = { &cr_t1,&cr_s1,3,NULL,NULL,center }; //두 번째 방문부터 중앙복도의 텍스트와 선택지가 바뀜
+
+TreeNode cr = { &cr_t1,&cr_s1,3,&w1,&p1,center }; //두 번째 방문부터 중앙복도의 텍스트와 선택지가 바뀜
 TreeNode c1 = { &c1_t1,&fight,2,&c2,&c3,NULL }; // 첫 번째 방문 중앙복도 노드
-TreeNode c2 = { &c2_t1,&c2_s1,2,&w1,&p1,NULL };
-TreeNode c3 = { &c3_t1,NULL,0,&c31,&c32,NULL };
-TreeNode c31 = { &c31_t1,&c31_s1,4,&w1,&p1,center }; //서편으로 갈시 왼쪽 링크, 1층으로 갈시 오른쪽 링크, 옥상으로 갈 시 center[0],동편으로 갈 시 center[1]
-TreeNode c32 = { &c32_t1,NULL,0,NULL,&w1,NULL };
+TreeNode c2 = { &c2_t1,NULL,0,&c21,&c22,NULL };
+TreeNode c21 = { &c21_t1,&c21_s1,4,&w1,&p1,center }; //서편으로 갈시 왼쪽 링크, 1층으로 갈시 오른쪽 링크, 옥상으로 갈 시 center[0],동편으로 갈 시 center[1]
+TreeNode c22 = { &c22_t1,NULL,0,NULL,&w1,NULL };
+TreeNode c3 = { &c3_t1,&c3_s1,2,&w1,&p1,NULL };
 
 //2층 동편 루트(e)
 
@@ -540,7 +697,7 @@ TreeNode e41 = { &e41_t1,NULL,0,NULL,&e4,NULL };
 TreeNode f1 = { &f1_t1,&f1_s1,2,&f2,&f3 ,NULL};
 TreeNode f2 = { &f2_t1,&explore,2,&f21,&f1 ,NULL};
 TreeNode f3 = { &f3_t1,NULL, 0, &f32,&f33 ,NULL};
-TreeNode f21 = { &f21_t1,NULL,0,NULL,&f1,NULL };
+TreeNode f21 = { &f21_t1,NULL,0,NULL,&f2,NULL };
 TreeNode f31 = { &f31_t1,NULL,0,&e1,NULL,NULL };
 TreeNode f32 = { &f32_t1,NULL,0,NULL,&f1,NULL };
 
@@ -771,7 +928,185 @@ void Intro() {
 
 	_getch(); // 입력 버퍼 비우기
 }
+//인벤토리 연결리스트 함수
+//ListNode* insert_last(ListNode* head, element* data)
+//{
+//	ListNode* node = (ListNode*)malloc(sizeof(ListNode));
+//	node->data = data;
+//	if (head->link == head || head->prelink == head) {
+//		head->link = node;
+//		head->prelink = node;
+//		node->link = head;
+//		node->prelink = head;
+//	}
+//	else {
+//		node->prelink = head->prelink;
+//		node->link = head;
+//		head->prelink->link = node;
+//		head->prelink = node;
+//	}
+//	return head;
+//}
+//ListNode* insert_first(ListNode* head, element* data)
+//{
+//	ListNode* node = (ListNode*)malloc(sizeof(ListNode));
+//	node->data = data;
+//	if (head->link == head || head->prelink == head) {
+//		node->link = head;
+//		node->prelink = head;
+//		head->link = node;
+//		head->prelink = node;
+//
+//	}
+//	else {
+//		node->prelink = head;
+//		node->link = head->link;
+//		node->link->prelink = node;
+//		head->link = node;
+//	}
+//	return head;
+//}
+//ListNode* insert(ListNode* head, ListNode* pre, element* data) {
+//	ListNode* node = (ListNode*)malloc(sizeof(ListNode));
+//	node->data = data;
+//	if (head->link == head || head->prelink == head || head == pre) {
+//		head = insert_first(head, data);
+//		return head;
+//	}
+//	else {
+//		node->prelink = pre;
+//		node->link = pre->link;
+//		pre->link->prelink = node;
+//		pre->link = node;
+//	}
+//	return head;
+//}
+//void print_list(ListNode* head)
+//{
+//	ListNode* p;
+//	int num = 1;
+//	if (head->prelink == head || head->link == head)
+//	{
+//		printf("=================INVENTORY===================\n");
+//		printf("비어있음\n");
+//		printf("=============================================\n");
+//		return;
+//	}
+//	p = head->link;
+//	printf("=================INVENTORY===================\n");
+//	do {
+//
+//		printf("%d.%s", num, p->data);
+//		num++;
+//		p = p->link;
+//		printf("\n");
+//	} while (p != head);
+//	printf("=============================================\n");
+//}
+//ListNode* deleted(ListNode* head, ListNode* removed) {
+//	if (head == removed) return;
+//	else {
+//		removed->link->prelink = removed->prelink;
+//		removed->prelink->link = removed->link;
+//		free(removed);
+//	}
+//	return head;
+//}
+//ListNode* getdeleteNode(ListNode* head, element* data) {
+//	if (head->link == head || head->prelink == head) {
+//		printf("비어있습니다.\n");
+//		return;
+//	}
+//	ListNode* removed = NULL;
+//	for (ListNode* p = head->link; p != head; p = p->link) {
+//		if (!strcmp(p->data, data)) {
+//			removed = p;
+//			break;
+//		}
+//	}
+//	if (removed == NULL) {
+//		printf("값을 찾지 못했습니다.\n");
+//		return head;
+//	}
+//	return removed;
+//}
+//void init(ListNode* head) {
+//	head->link = head;
+//	head->prelink = head;
+//	head->data = 'None';
+//}
 
+void print_text(TreeNode* current_node) {	//내용 텍스트 출력함수
+	TextLinkedList* temp = current_node->thead;
+	for (temp; temp != NULL; temp = temp->link) {
+		printf("%s", temp->text);
+		printf("\n");
+	}
+	return;
+}
+void print_select_text(TreeNode* current_node) {	//선택지 텍스트 출력함수
+	SelectLinkedList* temp = current_node->shead;
+	if (temp == NULL) {
+		return;
+	}
+	for (temp; temp != NULL; temp = temp->link) {
+		printf("%s", temp->text);
+		printf("\n");
+	}
+}
+bool is_condition_node(TreeNode* current_node) {		//노드가 조건 노드인지 확인하는 함수 (예)열쇠가 있는 또는 없는 경우 판단 노드
+	if (current_node->shead == NULL && current_node->left != NULL) {//선택지가 없고 왼쪽 링크는 NULL이 아닌경우 
+		return TRUE;
+	}
+	else {
+		return FALSE;
+	}
+}
+bool checking_condition(TreeNode* previous_node) { //조건 검사 함수 오늘은 일단 여기까지
+	if (previous_node == &f1) {//격리생활관 칸막이 열쇠 조건
+
+	}
+	if (previous_node == &c1 || previous_node == &p5) {//중앙복도(첫번째),지휘통제실: 무기가 있으면 참 없으면 거짓
+
+	}
+	if (previous_node == &f1) {
+
+	}
+	if (previous_node == &f1) {
+
+	}
+	if (previous_node == &f1) {
+
+	}
+}
+bool is_leaf_node(TreeNode* current_node) {//단말 노드 검사 함수
+	if (current_node->shead == NULL && current_node->left == NULL) {//선택지 없고 왼쪽 링크 비어있으면 단말
+		return TRUE;
+	}
+	else {
+		return FALSE;
+	}
+}
+TreeNode* checking_node(TreeNode* current_node) { //일단 만들어놈 쓸지 안쓸지 미정
+	bool is_true = true; //조건이 참 또는 거짓
+	print_text(current_node);
+	print_select_text(current_node);
+	is_condi = is_condition_node(current_node);
+	if (is_condi) {//조건 노드이면 조건 검사 후 조건에 맞는 노드로 이동한 노드 주소 반환
+		is_true = checking_condition(current_node);
+		if (is_true) {
+			return current_node->left;//참이면 현재 노드의 왼쪽 링크 반환
+		}
+		else {
+			return current_node->right;//거짓이면 현재 노드의 오른쪽 링크 반환
+		}
+	}
+	is_leaf = is_leaf_node(current_node);
+	if (is_leaf) {//단말 노드이면 현재 노드의 오른쪽 링크 노드로 현재 노드 주소 바꾸고 반환
+		return current_node->right;
+	}
+	return current_node; //조건도 아니고 단말도 아니면 현재 노드 주소 반환
+}
 void print_console() {
 	for (TextLinkedList* p = b.thead; p != NULL; p = p->link) {
 		printf("%s", p->text);
@@ -779,9 +1114,18 @@ void print_console() {
 }
 int main() {
 
-	system("mode con cols=100 lines=30"); // mode con:콘솔모드 cols:가로 lines:세로
-	Intro();
-	Home();
+	ListNode* inventory = (ListNode*)malloc(sizeof(ListNode));
+	init(inventory);
+	char* itemList[15] = { "에너지바","칸막이 열쇠","야채맛 건빵","부러진 대걸레","붕대","라이터","손 소독제","총기함 열쇠","K2 소총","K5 권총","옥상 열쇠","전투 식량","빅팜 소시지","ACDC 변환 장치" };
+	inventory = insert_last(inventory, itemList[0]);
+	inventory = insert_last(inventory, itemList[1]);
+	print_list(inventory);
+
+
+	//system("mode con cols=100 lines=30"); // mode con:콘솔모드 cols:가로 lines:세로
+	//Intro();
+	//Home();
+
 
 	print_console();
 	return 0;
