@@ -67,11 +67,11 @@ COORD pos = { 0, 0 }; // X, Y값 구조체
 keyControl keyControlData;
 keyControl keyControlData = { 0, 0, 0, 0 };
 
-bool is_condi = FALSE; // 조건 노드인가
-bool is_leaf = FALSE; // 단말 노드인가
+int is_condi = 0; // 조건 노드인가
+int is_leaf = 0; // 단말 노드인가
 TreeNode* previous = NULL; //조건을 확인하기 위한 이전 트리 노드 포인터
 
-//노드 선언부
+//=============================================================노드 선언부=============================================================
 TreeNode happy1 ;
 TreeNode happy2 ;
 TreeNode bad1 ;
@@ -169,17 +169,16 @@ TreeNode f21;
 TreeNode f31;
 TreeNode f32;
 
-//선택지 격리생활관
+//========================================================선택지 선언부===========================================================
 SelectLinkedList f1_s1;
 SelectLinkedList f1_s2;
-//선택지 동편
+
 SelectLinkedList e1_s1;
 SelectLinkedList e1_s2;
 SelectLinkedList e1_s3;
 SelectLinkedList e1_s4;
-//선택지 중앙복도(처음)
-//공용 선택지 fight, run
-//선택지 중앙복도(처음x)
+
+
 SelectLinkedList c1_s1;
 SelectLinkedList c1_s2;
 SelectLinkedList c1_s3;
@@ -198,7 +197,6 @@ SelectLinkedList c21_s2;
 SelectLinkedList c21_s3;
 SelectLinkedList c21_s4;
 
-//선택지 서편
 SelectLinkedList w1_s1;
 SelectLinkedList w1_s2;
 SelectLinkedList w1_s3;
@@ -207,7 +205,6 @@ SelectLinkedList w1_s5;
 SelectLinkedList w1_s6;
 SelectLinkedList w1_s7;
 
-//선택지 1층
 SelectLinkedList p1_s1;
 SelectLinkedList p1_s2;
 SelectLinkedList p1_s3;
@@ -220,27 +217,437 @@ SelectLinkedList p1_s8;
 SelectLinkedList p68_s1;
 SelectLinkedList p68_s2;
 
-//선택지 옥상
 
 SelectLinkedList r2_s1;
 SelectLinkedList r2_s2;
-
 
 SelectLinkedList r31_s1;
 SelectLinkedList r31_s2;
 SelectLinkedList r31_s3;
 SelectLinkedList r31_s4;
 
+//===================================================================텍스트 선언부======================================================
+TextLinkedList f1_t1;
+TextLinkedList f1_t2;
+TextLinkedList f1_t3;
+
+TextLinkedList f2_t1;
+TextLinkedList f2_t2;
+
+TextLinkedList f3_t1;
+
+TextLinkedList f21_t1;
+
+TextLinkedList f31_t1;
+TextLinkedList f31_t2;
+
+TextLinkedList f32_t1;
+TextLinkedList f32_t2;
+
+//텍스트 동편
+TextLinkedList e1_t1;
+TextLinkedList e1_t2;
+TextLinkedList e1_t3;
+TextLinkedList e1_t4;
+
+TextLinkedList e2_t1;
+TextLinkedList e2_t2;
+TextLinkedList e21_t1;
+TextLinkedList e21_t2;
+
+TextLinkedList e3_t1;
+TextLinkedList e3_t2;
+
+TextLinkedList e31_t1;
+
+TextLinkedList e4_t1;
+TextLinkedList e4_t2;
+TextLinkedList e4_t3;
+TextLinkedList e4_t4;
+
+TextLinkedList e41_t1;
+TextLinkedList e41_t2;
+
+//텍스트 중앙 복도
+TextLinkedList c1_t1;
+TextLinkedList c1_t2;
+TextLinkedList c1_t3;
+TextLinkedList c1_t4;
+TextLinkedList c1_t5;
+TextLinkedList c1_t6;
+
+TextLinkedList cr_t1;
+TextLinkedList cr_t2;
+TextLinkedList cr_t3;
+
+TextLinkedList c3_t1;
+TextLinkedList c3_t2;
+TextLinkedList c3_t3;
+TextLinkedList c2_t1;
+
+
+TextLinkedList c21_t1;
+TextLinkedList c21_t2;
+TextLinkedList c21_t3;
+TextLinkedList c21_t4;
+TextLinkedList c21_t5;
+
+TextLinkedList c22_t1;
+TextLinkedList c22_t2;
+TextLinkedList c22_t3;
+
+//텍스트 서편
+TextLinkedList w1_t1;
+TextLinkedList w1_t2;
+TextLinkedList w1_t3;
+
+TextLinkedList w2_t1;
+TextLinkedList w2_t2;
+
+TextLinkedList w21_t1;
+
+TextLinkedList w3_t1;
+TextLinkedList w3_t2;
+
+TextLinkedList w31_t1;
+
+TextLinkedList w4_t1;
+TextLinkedList w4_t2;
+TextLinkedList w4_t3;
+
+TextLinkedList w41_t1;
+TextLinkedList w41_t2;
+TextLinkedList w41_t3;
+TextLinkedList w41_t4;
+
+TextLinkedList w42_t1;
+TextLinkedList w42_t2;
+TextLinkedList w42_t3;
+
+TextLinkedList w43_t1;
+
+TextLinkedList w5_t1;
+TextLinkedList w5_t2;
+TextLinkedList w5_t3;
+
+TextLinkedList w51_t1;
+TextLinkedList w51_t2;
+
+
+TextLinkedList w6_t1;
+TextLinkedList w6_t2;
+TextLinkedList w6_t3;
+
+TextLinkedList w61_t1;
+TextLinkedList w61_t2;
+TextLinkedList w61_t3;
+
+TextLinkedList w62_t1;
+TextLinkedList w62_t2;
+TextLinkedList w62_t3;
+TextLinkedList w62_t4;
+TextLinkedList w62_t5;
+
+TextLinkedList w63_t1;
+TextLinkedList w7_t1;
+TextLinkedList w7_t2;
+TextLinkedList w7_t3;
+TextLinkedList w71_t1;
+
+//텍스트 1층
+
+TextLinkedList p1_t1;
+TextLinkedList p1_t2;
+TextLinkedList p1_t3;
+
+TextLinkedList p2_t1;
+TextLinkedList p2_t2;
+TextLinkedList p2_t3;
+
+TextLinkedList p21_t1;
+
+TextLinkedList p3_t1;
+TextLinkedList p3_t2;
+TextLinkedList p3_t3;
+TextLinkedList p3_t4;
+TextLinkedList p3_t5;
+
+TextLinkedList p31_t1;
+
+TextLinkedList p4_t1;
+
+TextLinkedList p5_t1;
+TextLinkedList p5_t2;
+TextLinkedList p5_t3;
+TextLinkedList p5_t4;
+TextLinkedList p5_t5;
+TextLinkedList p5_t6;
+TextLinkedList p5_t7;
+TextLinkedList p51_t1;
+
+TextLinkedList p52_t1;
+TextLinkedList p52_t2;
+TextLinkedList p52_t3;
+TextLinkedList p52_t4;
+
+
+TextLinkedList p53_t1;
+TextLinkedList p53_t2;
+
+TextLinkedList p54_t1;
+TextLinkedList p54_t2;
+TextLinkedList p54_t3;
+TextLinkedList p54_t4;
+TextLinkedList p54_t5;
+
+TextLinkedList p6_t1;
+
+TextLinkedList p61_t1;
+TextLinkedList p61_t2;
+TextLinkedList p61_t3;
+TextLinkedList p61_t4;
+
+TextLinkedList p62_t1;
+TextLinkedList p62_t2;
+
+TextLinkedList p63_t1;
+TextLinkedList p63_t2;
+TextLinkedList p63_t3;
+
+TextLinkedList p64_t1;
+TextLinkedList p64_t2;
+TextLinkedList p64_t3;
+TextLinkedList p64_t4;
+
+TextLinkedList p65_t1;
+TextLinkedList p65_t2;
+
+TextLinkedList p67_t1;
+TextLinkedList p67_t2;
+TextLinkedList p67_t3;
+
+TextLinkedList p68_t1;
+
+TextLinkedList p69_t1;
+TextLinkedList p69_t2;
+TextLinkedList p69_t3;
+TextLinkedList p69_t4;
+TextLinkedList p69_t5;
+TextLinkedList p69_t6;
+TextLinkedList p69_t7;
+
+TextLinkedList p610_t1;
+TextLinkedList p610_t2;
+TextLinkedList p610_t3;
+TextLinkedList p610_t4;
+TextLinkedList p610_t5;
+
+
+TextLinkedList p7_t1;
+TextLinkedList p7_t2;
+TextLinkedList p7_t3;
+TextLinkedList p7_t4;
+
+TextLinkedList p71_t1;
+TextLinkedList p71_t2;
+
+TextLinkedList p8_t1;
+TextLinkedList p8_t2;
+TextLinkedList p8_t3;
+
+TextLinkedList p81_t1;
+TextLinkedList p81_t2;
+TextLinkedList p81_t3;
+TextLinkedList p82_t1;
+TextLinkedList p82_t2;
+TextLinkedList p82_t3;
+
+//텍스트 옥상
+TextLinkedList r1_t1;
+TextLinkedList r1_t2;
+TextLinkedList r1_t3;
+TextLinkedList r1_t4;
+
+TextLinkedList r2_t1;
+TextLinkedList r2_t2;
+TextLinkedList r2_t3;
+TextLinkedList r2_t4;
+
+TextLinkedList r31_t1;
+TextLinkedList r31_t2;
+TextLinkedList r31_t3;
+TextLinkedList r31_t4;
+TextLinkedList r31_t5;
+TextLinkedList r31_t6;
+
+TextLinkedList r32_t1;
+TextLinkedList r32_t2;
+TextLinkedList r32_t3;
+
+TextLinkedList r3_t1;
+TextLinkedList r3_t2;
+TextLinkedList r3_t3;
+
+TextLinkedList r4_t1;
+TextLinkedList r4_t2;
+TextLinkedList r4_t3;
+TextLinkedList r4_t4;
+
+//텍스트 엔딩
+TextLinkedList h1_t1;
+TextLinkedList h1_t2;
+TextLinkedList h1_t3;
+TextLinkedList h1_t4;
+TextLinkedList h1_t5;
+TextLinkedList h1_t6;
+TextLinkedList h1_t7;
+TextLinkedList h1_t8;
+TextLinkedList h1_t9;
+TextLinkedList h1_t10;
+TextLinkedList h1_t11;
+TextLinkedList h1_t12;
+TextLinkedList h1_t13;
+
+TextLinkedList h2_t1;
+TextLinkedList h2_t2;
+TextLinkedList h2_t3;
+TextLinkedList h2_t4;
+TextLinkedList h2_t5;
+TextLinkedList h2_t6;
+TextLinkedList h2_t7;
+TextLinkedList h2_t8;
+TextLinkedList h2_t9;
+TextLinkedList h2_t10;
+TextLinkedList h2_t11;
+TextLinkedList h2_t12;
+TextLinkedList h2_t13;
+TextLinkedList h2_t14;
+TextLinkedList h2_t15;
+TextLinkedList h2_t16;
+TextLinkedList h2_t17;
+TextLinkedList h2_t18;
+TextLinkedList h2_t19;
+TextLinkedList h2_t20;
+TextLinkedList h2_t21;
+TextLinkedList h2_t22;
+TextLinkedList h2_t23;
+TextLinkedList h2_t24;
+
+TextLinkedList b1_t1;
+TextLinkedList b1_t2;
+TextLinkedList b1_t3;
+TextLinkedList b1_t4;
+TextLinkedList b1_t5;
+TextLinkedList b1_t6;
+TextLinkedList b1_t7;
+TextLinkedList b1_t8;
+TextLinkedList b1_t9;
+TextLinkedList b1_t10;
+TextLinkedList b1_t11;
+TextLinkedList b1_t12;
+TextLinkedList b1_t13;
+TextLinkedList b1_t14;
+TextLinkedList b1_t15;
+TextLinkedList b1_t16;
+
+
+TextLinkedList b2_t1;
+TextLinkedList b2_t2;
+TextLinkedList b2_t3;
+TextLinkedList b2_t4;
+TextLinkedList b2_t5;
+TextLinkedList b2_t6;
+TextLinkedList b2_t7;
+TextLinkedList b2_t8;
+TextLinkedList b2_t9;
+TextLinkedList b2_t10;
+TextLinkedList b2_t11;
+TextLinkedList b2_t12;
+TextLinkedList b2_t13;
+TextLinkedList b2_t14;
+TextLinkedList b2_t15;
+TextLinkedList b2_t16;
+TextLinkedList b2_t17;
+TextLinkedList b2_t18;
+TextLinkedList b2_t19;
+TextLinkedList b2_t21;
+TextLinkedList b2_t22;
+TextLinkedList b2_t23;
+TextLinkedList b2_t24;
+//===========================================================선택지==================================================================
+SelectLinkedList f1_s1 = { "[1]간부연구실로 간다",&f1_s2 };
+SelectLinkedList f1_s2 = { "[2]칸막이 밖으로 나간다",NULL };
+//선택지 동편
+SelectLinkedList e1_s1 = { "[1]화장실로 간다",&e1_s2 };
+SelectLinkedList e1_s2 = { "[2]세탁실로 간다",&e1_s3 };
+SelectLinkedList e1_s3 = { "[3]행정반으로 간다",&e1_s4 };
+SelectLinkedList e1_s4 = { "[4]중앙복도로 간다",NULL };
+//선택지 중앙복도(처음)
+//공용 선택지 fight, run
+//선택지 중앙복도(처음x)
+SelectLinkedList c1_s1 = { "[1]동편으로 간다",&c1_s2 };
+SelectLinkedList c1_s2 = { "[2]서편으로 간다",&c1_s3 };
+SelectLinkedList c1_s3 = { "[3]1층으로 간다",&c1_s4 };
+SelectLinkedList c1_s4 = { "[4]중앙복도로 간다",NULL };
+
+SelectLinkedList cr_s1 = { "[1]서편으로 이동한다",&cr_s2 };
+SelectLinkedList cr_s2 = { "[2]1층으로 이동한다" ,&cr_s3 };
+SelectLinkedList cr_s3 = { "[3]옥상으로 이동한다",&cr_s4 };
+SelectLinkedList cr_s4 = { "[4]동편으로 이동한다" ,NULL };
+
+SelectLinkedList c3_s1 = { "[1]서편으로 도망간다",&c3_s2 };
+SelectLinkedList c3_s2 = { "[2]1층으로 도망간다" ,NULL };
+
+SelectLinkedList c21_s1 = { "[1]서편으로 이동한다",&c21_s2 };
+SelectLinkedList c21_s2 = { "[2]1층으로 이동한다" ,&c21_s3 };
+SelectLinkedList c21_s3 = { "[3]옥상으로 이동한다",&c21_s4 };
+SelectLinkedList c21_s4 = { "[4]동편으로 이동한다" ,NULL };
+
+//선택지 서편
+SelectLinkedList w1_s1 = { "[1]1-1반으로 간다",&w1_s2 };
+SelectLinkedList w1_s2 = { "[2]1-2반으로 간다",&w1_s3 };
+SelectLinkedList w1_s3 = { "[3]1-3반으로 간다",&w1_s4 };
+SelectLinkedList w1_s4 = { "[4]2-1반으로 간다",&w1_s5 };
+SelectLinkedList w1_s5 = { "[5]2-2반으로 간다",&w1_s6 };
+SelectLinkedList w1_s6 = { "[6]2-3반으로 간다",&w1_s7 };
+SelectLinkedList w1_s7 = { "[7]중앙복도로 간다",NULL };
+
+//선택지 1층
+SelectLinkedList p1_s1 = { "[1]인사과로 간다",&p1_s2 };
+SelectLinkedList p1_s2 = { "[2]군수과로 간다",&p1_s3 };
+SelectLinkedList p1_s3 = { "[3]대대장실로 간다",&p1_s4 };
+SelectLinkedList p1_s4 = { "[4]지휘통제실로 간다",&p1_s5 };
+SelectLinkedList p1_s5 = { "[5]주임원사실로 간다",&p1_s6 };
+SelectLinkedList p1_s6 = { "[6]통신물자 창고로 간다",&p1_s7 };
+SelectLinkedList p1_s7 = { "[7]총기함 실로 간다",&p1_s8 };
+SelectLinkedList p1_s8 = { "[8]중앙복도로 간다",NULL };
+
+SelectLinkedList p68_s1 = { "[1]숨는다",&p68_s2 };
+SelectLinkedList p68_s2 = { "[2]도망친다",NULL };
+
+//선택지 옥상
+
+SelectLinkedList r2_s1 = { "[1]통신망을 개통한다",&r2_s2 };
+SelectLinkedList r2_s2 = { "[2]2층 중앙복도로 내려간다",NULL };
+
+
+SelectLinkedList r31_s1 = { "[1]통신보안, 여기는 11사단 통신대대, 생존자 1명 대기중, 구조 바람.",&r31_s2 };
+SelectLinkedList r31_s2 = { "[2]여보세요??살려주세요!! 여기 사람이 있다구요!!!",&r31_s3 };
+SelectLinkedList r31_s3 = { "[3]당직 사령한테 연결해.빨리.",&r31_s4 };
+SelectLinkedList r31_s4 = { "[4]제가 통신대대 병장 박전역인데, 지금 옥상에 있거든요? 빨리 구하러 와주세요.빨리요",NULL };
+
+
 //선택지 공통
-SelectLinkedList explore = { "[1]탐색한다",&leave};
 SelectLinkedList leave = { "[2]떠난다",NULL };
+SelectLinkedList explore = { "[1]탐색한다",&leave};
 
-SelectLinkedList fight = { "[1]맞서 싸운다",&run };
 SelectLinkedList run = { "[2]도망간다",NULL };
+SelectLinkedList fight = { "[1]맞서 싸운다",&run };
 
-
-
-
+//====================================================텍스트========================================================================================================
+//
+//
+//
 //텍스트 격리생활관
 TextLinkedList f1_t1 = { "격리생활관에서 나왔다.",&f1_t2 };
 TextLinkedList f1_t2 = { "복도 방향으로 칸막이가 막고있다.",&f1_t3 };
@@ -702,7 +1109,7 @@ TreeNode e41 = { &e41_t1,NULL,0,NULL,&e4,NULL };
 
 TreeNode f1 = { &f1_t1,&f1_s1,2,&f2,&f3 ,NULL};
 TreeNode f2 = { &f2_t1,&explore,2,&f21,&f1 ,NULL};
-TreeNode f3 = { &f3_t1,NULL, 0, &f32,&f33 ,NULL};
+TreeNode f3 = { &f3_t1,NULL, 0, &f31,&f32 ,NULL};
 TreeNode f21 = { &f21_t1,NULL,0,NULL,&f2,NULL };
 TreeNode f31 = { &f31_t1,NULL,0,&e1,NULL,NULL };
 TreeNode f32 = { &f32_t1,NULL,0,NULL,&f1,NULL };
@@ -935,112 +1342,112 @@ void Intro() {
 	_getch(); // 입력 버퍼 비우기
 }
 //인벤토리 연결리스트 함수
-//ListNode* insert_last(ListNode* head, element* data)
-//{
-//	ListNode* node = (ListNode*)malloc(sizeof(ListNode));
-//	node->data = data;
-//	if (head->link == head || head->prelink == head) {
-//		head->link = node;
-//		head->prelink = node;
-//		node->link = head;
-//		node->prelink = head;
-//	}
-//	else {
-//		node->prelink = head->prelink;
-//		node->link = head;
-//		head->prelink->link = node;
-//		head->prelink = node;
-//	}
-//	return head;
-//}
-//ListNode* insert_first(ListNode* head, element* data)
-//{
-//	ListNode* node = (ListNode*)malloc(sizeof(ListNode));
-//	node->data = data;
-//	if (head->link == head || head->prelink == head) {
-//		node->link = head;
-//		node->prelink = head;
-//		head->link = node;
-//		head->prelink = node;
-//
-//	}
-//	else {
-//		node->prelink = head;
-//		node->link = head->link;
-//		node->link->prelink = node;
-//		head->link = node;
-//	}
-//	return head;
-//}
-//ListNode* insert(ListNode* head, ListNode* pre, element* data) {
-//	ListNode* node = (ListNode*)malloc(sizeof(ListNode));
-//	node->data = data;
-//	if (head->link == head || head->prelink == head || head == pre) {
-//		head = insert_first(head, data);
-//		return head;
-//	}
-//	else {
-//		node->prelink = pre;
-//		node->link = pre->link;
-//		pre->link->prelink = node;
-//		pre->link = node;
-//	}
-//	return head;
-//}
-//void print_list(ListNode* head)
-//{
-//	ListNode* p;
-//	int num = 1;
-//	if (head->prelink == head || head->link == head)
-//	{
-//		printf("=================INVENTORY===================\n");
-//		printf("비어있음\n");
-//		printf("=============================================\n");
-//		return;
-//	}
-//	p = head->link;
-//	printf("=================INVENTORY===================\n");
-//	do {
-//
-//		printf("%d.%s", num, p->data);
-//		num++;
-//		p = p->link;
-//		printf("\n");
-//	} while (p != head);
-//	printf("=============================================\n");
-//}
-//ListNode* deleted(ListNode* head, ListNode* removed) {
-//	if (head == removed) return;
-//	else {
-//		removed->link->prelink = removed->prelink;
-//		removed->prelink->link = removed->link;
-//		free(removed);
-//	}
-//	return head;
-//}
-//ListNode* getdeleteNode(ListNode* head, element* data) {
-//	if (head->link == head || head->prelink == head) {
-//		printf("비어있습니다.\n");
-//		return;
-//	}
-//	ListNode* removed = NULL;
-//	for (ListNode* p = head->link; p != head; p = p->link) {
-//		if (!strcmp(p->data, data)) {
-//			removed = p;
-//			break;
-//		}
-//	}
-//	if (removed == NULL) {
-//		printf("값을 찾지 못했습니다.\n");
-//		return head;
-//	}
-//	return removed;
-//}
-//void init(ListNode* head) {
-//	head->link = head;
-//	head->prelink = head;
-//	head->data = 'None';
-//}
+ListNode* insert_last(ListNode* head, element* data)
+{
+	ListNode* node = (ListNode*)malloc(sizeof(ListNode));
+	node->data = data;
+	if (head->link == head || head->prelink == head) {
+		head->link = node;
+		head->prelink = node;
+		node->link = head;
+		node->prelink = head;
+	}
+	else {
+		node->prelink = head->prelink;
+		node->link = head;
+		head->prelink->link = node;
+		head->prelink = node;
+	}
+	return head;
+}
+ListNode* insert_first(ListNode* head, element* data)
+{
+	ListNode* node = (ListNode*)malloc(sizeof(ListNode));
+	node->data = data;
+	if (head->link == head || head->prelink == head) {
+		node->link = head;
+		node->prelink = head;
+		head->link = node;
+		head->prelink = node;
+
+	}
+	else {
+		node->prelink = head;
+		node->link = head->link;
+		node->link->prelink = node;
+		head->link = node;
+	}
+	return head;
+}
+ListNode* insert(ListNode* head, ListNode* pre, element* data) {
+	ListNode* node = (ListNode*)malloc(sizeof(ListNode));
+	node->data = data;
+	if (head->link == head || head->prelink == head || head == pre) {
+		head = insert_first(head, data);
+		return head;
+	}
+	else {
+		node->prelink = pre;
+		node->link = pre->link;
+		pre->link->prelink = node;
+		pre->link = node;
+	}
+	return head;
+}
+void print_list(ListNode* head)
+{
+	ListNode* p;
+	int num = 1;
+	if (head->prelink == head || head->link == head)
+	{
+		printf("=================INVENTORY===================\n");
+		printf("비어있음\n");
+		printf("=============================================\n");
+		return;
+	}
+	p = head->link;
+	printf("=================INVENTORY===================\n");
+	do {
+
+		printf("%d.%s", num, p->data);
+		num++;
+		p = p->link;
+		printf("\n");
+	} while (p != head);
+	printf("=============================================\n");
+}
+ListNode* deleted(ListNode* head, ListNode* removed) {
+	if (head == removed) return;
+	else {
+		removed->link->prelink = removed->prelink;
+		removed->prelink->link = removed->link;
+		free(removed);
+	}
+	return head;
+}
+ListNode* getdeleteNode(ListNode* head, element* data) {
+	if (head->link == head || head->prelink == head) {
+		printf("비어있습니다.\n");
+		return;
+	}
+	ListNode* removed = NULL;
+	for (ListNode* p = head->link; p != head; p = p->link) {
+		if (!strcmp(p->data, data)) {
+			removed = p;
+			break;
+		}
+	}
+	if (removed == NULL) {
+		printf("값을 찾지 못했습니다.\n");
+		return head;
+	}
+	return removed;
+}
+void init(ListNode* head) {
+	head->link = head;
+	head->prelink = head;
+	head->data = 'None';
+}
 
 void print_text(TreeNode* current_node) {	//내용 텍스트 출력함수
 	TextLinkedList* temp = current_node->thead;
@@ -1060,15 +1467,23 @@ void print_select_text(TreeNode* current_node) {	//선택지 텍스트 출력함
 		printf("\n");
 	}
 }
-bool is_condition_node(TreeNode* current_node) {		//노드가 조건 노드인지 확인하는 함수 (예)열쇠가 있는 또는 없는 경우 판단 노드
+int is_condition_node(TreeNode* current_node) {		//노드가 조건 노드인지 확인하는 함수 (예)열쇠가 있는 또는 없는 경우 판단 노드
 	if (current_node->shead == NULL && current_node->left != NULL) {//선택지가 없고 왼쪽 링크는 NULL이 아닌경우 
-		return TRUE;
+		return 1;
 	}
 	else {
-		return FALSE;
+		return 0;
 	}
 }
-bool checking_condition(TreeNode* previous_node) { //조건 검사 함수 오늘은 일단 여기까지
+int is_leaf_node(TreeNode* current_node) {//단말 노드 검사 함수
+	if (current_node->shead == NULL && current_node->left == NULL) {//선택지 없고 왼쪽 링크 비어있으면 단말
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+int checking_condition(TreeNode* previous_node) { //조건 검사 함수 오늘은 일단 여기까지
 	if (previous_node == &f1) {//격리생활관 칸막이 열쇠 조건
 
 	}
@@ -1085,16 +1500,9 @@ bool checking_condition(TreeNode* previous_node) { //조건 검사 함수 오늘
 
 	}
 }
-bool is_leaf_node(TreeNode* current_node) {//단말 노드 검사 함수
-	if (current_node->shead == NULL && current_node->left == NULL) {//선택지 없고 왼쪽 링크 비어있으면 단말
-		return TRUE;
-	}
-	else {
-		return FALSE;
-	}
-}
+
 TreeNode* checking_node(TreeNode* current_node) { //일단 만들어놈 쓸지 안쓸지 미정
-	bool is_true = true; //조건이 참 또는 거짓
+	int is_true = 1; //조건이 참 또는 거짓
 	print_text(current_node);
 	print_select_text(current_node);
 	is_condi = is_condition_node(current_node);
@@ -1113,11 +1521,55 @@ TreeNode* checking_node(TreeNode* current_node) { //일단 만들어놈 쓸지 �
 	}
 	return current_node; //조건도 아니고 단말도 아니면 현재 노드 주소 반환
 }
-void print_console() {
-	for (TextLinkedList* p = b.thead; p != NULL; p = p->link) {
-		printf("%s", p->text);
-	}
-}
+//void print_console(TreeNode* root) {
+//	while (1) {
+//		pos.X = 2;
+//		pos.Y = 1;
+//		TreeNode* t = NULL;
+//		// 만약 TreeNode가 Null이라면 while문 종료
+//		if (t == NULL) {
+//			break;
+//		}
+//		printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+//		printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+//		printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+//		printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+//		printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+//		printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+//		printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+//		printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+//		printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+//		printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+//		printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　                         　　 　　　　　　■\n");
+//		printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+//		printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+//		printf("■  　　　　　　　                                                                              ■\n");
+//		printf("■     　　                                                                                     ■\n");
+//		printf("■                                                                                              ■\n");
+//		printf("■                                                                                              ■\n");
+//		printf("■                                                                                              ■\n");
+//		printf("■                                                                                              ■\n");
+//		printf("■                                                                                              ■\n");
+//		printf("■                                                                                              ■\n");
+//		printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+//		for (TextLinkedList* current_text = t->thead; current_text != NULL; current_text = current_text->link) {
+//			printf("%s", current_text->text);
+//			pos.Y++;
+//		}
+//
+//		pos.Y = SELECTSTARTPOS;
+//		for (SelectLinkedList* current_select = t->shead; current_select != NULL; current_select = current_select->link) {
+//			printf("> %s", current_select->text);
+//			pos.Y++;
+//		}
+//		while (!keyControlData.isSubmit) {
+//			keyControlData.key = KeyIn();
+//			KeyPrint();
+//			Sleep(1);
+//		}
+		// 여기 어떻게 해야할지 모르겠음
+//	}
+//}
 int main() {
 
 	ListNode* inventory = (ListNode*)malloc(sizeof(ListNode));
@@ -1133,6 +1585,6 @@ int main() {
 	//Home();
 
 
-	print_console();
+	/*print_console();*/
 	return 0;
 }
