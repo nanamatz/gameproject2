@@ -61,26 +61,6 @@ typedef struct TreeNode {
 	struct TreeNode** dptr;		//선택지가 많아서 구조체포인터 배열 주소를 받는 이중포인터
 }TreeNode;
 
-//SelectLinkedList s1 = { "1번", 1, NULL, NULL };
-TextLinkedList t17 = { "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n", NULL };
-TextLinkedList t16 = { "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n", &t17 };
-TextLinkedList t15 = { "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n", &t16 };
-TextLinkedList t14 = { "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n", &t15 };
-TextLinkedList t13 = { "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n", &t14 };
-TextLinkedList t12 = { "■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n", &t13 };
-TextLinkedList t11 = { "■　　　　　　　　　　　　　　　　　　　　　　　　　　Press any key to continue　　 　　　　　　■\n", &t12 };
-TextLinkedList t10 = { "■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n", &t11 };
-TextLinkedList t9 = { "■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n", &t10 };
-TextLinkedList t8 = { "■　　　　　　　■■■　　　■　　■　　　■■　　　　■■　　　■　　■　　■■■　　　　　　　■\n", &t9 };
-TextLinkedList t7 = { "■　　　　　　　■　　■　　■　　■　　　■■　　　■　　■　　■　　■　　■　　　　　　　　　■\n", &t8 };
-TextLinkedList t6 = { "■　　　　　　　■　　■　　■■■■　　　■■　　　■　　■　　■　■■　　■■■　　　　　　　■\n",&t7 };
-TextLinkedList t5 = { "■　　　　　　　■　　■　　■　　■　　■　　■　　■　　■　　■■　■　　■　　　　　　　　　■\n",&t6 };
-TextLinkedList t4 = { "■　　　　　　　■■■　　　　■■　　　■　　■　　　■■　　　■　　■　　■■■　　　　　　　■\n", &t5 };
-TextLinkedList t3 = { "■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n", &t4 };
-TextLinkedList t2 = { "■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n", &t3 };
-TextLinkedList t1 = { "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n", &t2 };
-//TreeNode b = { &t1, &s1, 1, NULL, NULL };
-
 // 변수 선언
 // 전역변수
 COORD pos = { 0, 0 }; // X, Y값 구조체
@@ -92,138 +72,164 @@ bool is_leaf = FALSE; // 단말 노드인가
 TreeNode* previous = NULL; //조건을 확인하기 위한 이전 트리 노드 포인터
 
 //노드 선언부
-//격리 생활관
-TreeNode f1;
-TreeNode f21;
-TreeNode f22;
-TreeNode f31;
-TreeNode f32;
-TreeNode f33;
-//동편
-TreeNode e1;
-TreeNode e21;
-TreeNode e22;
-TreeNode e31;
-TreeNode e32;
-TreeNode e33;
-TreeNode e41;
-TreeNode e42;
-TreeNode e43;
+TreeNode happy1 ;
+TreeNode happy2 ;
+TreeNode bad1 ;
+TreeNode bad2 ;
+TreeNode gameover;
 
-//중앙복도
-TreeNode c1;
-TreeNode c21;
-TreeNode c22;
-TreeNode c31;
-TreeNode c32;
-TreeNode c41;
-TreeNode c42;
+//옥상 루트(r)
 
-//서편
-TreeNode w1;
-TreeNode w2;
+TreeNode r1 ;
+TreeNode r2 ;
+TreeNode r3 ;
+TreeNode r31 ;
+TreeNode r32;
+TreeNode r4;
+TreeNode r5;
+TreeNode r6;
+TreeNode r7;
+
+//1층 루트(p)
+
+
+TreeNode p1;//1층 로비
+TreeNode p2;//인사과
+TreeNode p21;
+TreeNode p3;//군수과
+TreeNode p31;
+TreeNode p4;//대대장실
+TreeNode p5;//지휘통제실
+TreeNode p51;
+TreeNode p52;//무기가 있을 경우
+TreeNode p53; //좀비 처치 후 탐색 -->주임원사실 열쇠 획득
+TreeNode p54;//무기가 없을 경우
+TreeNode p6;//주임원사실
+TreeNode p61;
+TreeNode p62;
+TreeNode p63 ;
+TreeNode p64 ;
+TreeNode p65 ;
+TreeNode p66 ;
+TreeNode p67 ;
+TreeNode p68 ;
+TreeNode p69 ;
+TreeNode p610 ;
+TreeNode p7 ;//통신물자창고
+TreeNode p71;
+TreeNode p8 ;//총기함실
+TreeNode p81;
+TreeNode p82;
+
+//2층 서편 루트(w)
+ 
+TreeNode w1;//서편 로비
+TreeNode w2;//1-1반
+TreeNode w21;
+TreeNode w3;//1-2반
 TreeNode w31;
-TreeNode w32;
+TreeNode w4;//1-3반
 TreeNode w41;
 TreeNode w42;
 TreeNode w43;
-TreeNode w44;
+TreeNode w5;//2-1반
 TreeNode w51;
-TreeNode w52;
+TreeNode w6;//2-2반
+TreeNode w61;
+TreeNode w62;
+TreeNode w63;
+TreeNode w7;//2-3반
+TreeNode w71;
 
-//1층
-TreeNode p1;
-TreeNode p2;
-TreeNode p31;
-TreeNode p32;
-TreeNode p41;
-TreeNode p42;
-TreeNode p43;
-TreeNode p44;
-TreeNode p51;
-TreeNode p52;
-TreeNode p53;
-TreeNode p54;
-TreeNode p61;
-TreeNode p62;
-TreeNode p63;
-TreeNode p71;
-TreeNode p72;
-TreeNode p81;
-TreeNode p91;
-TreeNode p92;
+//2층 중앙 복도(c)
 
-//옥상
-TreeNode r1;
-TreeNode r2;
-TreeNode r31;
-TreeNode r32;
-TreeNode r41;
-TreeNode r42;
-TreeNode r51;
-TreeNode r52;
+TreeNode cr; 
+TreeNode c1; 
+TreeNode c2 ;
+TreeNode c21;
+TreeNode c22;
+TreeNode c3 ;
+
+//2층 동편 루트(e)
+
+
+TreeNode e1;
+TreeNode e2;
+TreeNode e21;
+TreeNode e3;
+TreeNode e31;
+TreeNode e4;
+TreeNode e41;
+//격리생활관 루트 (f)
+
+TreeNode f1;
+TreeNode f2;
+TreeNode f3;
+TreeNode f21;
+TreeNode f31;
+TreeNode f32;
 
 //선택지 격리생활관
-SelectLinkedList f1_s1 = { "[1]간부연구실로 간다",&f1_s2 };
-SelectLinkedList f1_s2 = { "[2]칸막이 밖으로 나간다",NULL };
+SelectLinkedList f1_s1;
+SelectLinkedList f1_s2;
 //선택지 동편
-SelectLinkedList e1_s1 = { "[1]화장실로 간다",&e1_s2 };
-SelectLinkedList e1_s2 = { "[2]세탁실로 간다",&e1_s3 };
-SelectLinkedList e1_s3 = { "[3]행정반으로 간다",&e1_s4 };
-SelectLinkedList e1_s4 = { "[4]중앙복도로 간다",NULL };
+SelectLinkedList e1_s1;
+SelectLinkedList e1_s2;
+SelectLinkedList e1_s3;
+SelectLinkedList e1_s4;
 //선택지 중앙복도(처음)
 //공용 선택지 fight, run
 //선택지 중앙복도(처음x)
-SelectLinkedList c1_s1 = { "[1]동편으로 간다",&c1_s2 };
-SelectLinkedList c1_s2 = { "[2]서편으로 간다",&c1_s3 };
-SelectLinkedList c1_s3 = { "[3]1층으로 간다",&c1_s4 };
-SelectLinkedList c1_s4 = { "[4]중앙복도로 간다",NULL };
+SelectLinkedList c1_s1;
+SelectLinkedList c1_s2;
+SelectLinkedList c1_s3;
+SelectLinkedList c1_s4;
 
-SelectLinkedList cr_s1 = { "[1]서편으로 이동한다",&cr_s2 };
-SelectLinkedList cr_s2 = { "[2]1층으로 이동한다" ,&cr_s3 };
-SelectLinkedList cr_s3 = { "[3]옥상으로 이동한다",&cr_s4 };
-SelectLinkedList cr_s4 = { "[4]동편으로 이동한다" ,NULL };
+SelectLinkedList cr_s1;
+SelectLinkedList cr_s2;
+SelectLinkedList cr_s3;
+SelectLinkedList cr_s4;
 
-SelectLinkedList c3_s1 = { "[1]서편으로 도망간다",&c3_s2 };
-SelectLinkedList c3_s2 = { "[2]1층으로 도망간다" ,NULL };
+SelectLinkedList c3_s1;
+SelectLinkedList c3_s2;
 
-SelectLinkedList c21_s1 = { "[1]서편으로 이동한다",&c21_s2 };
-SelectLinkedList c21_s2 = { "[2]1층으로 이동한다" ,&c21_s3 };
-SelectLinkedList c21_s3 = { "[3]옥상으로 이동한다",&c21_s4 };
-SelectLinkedList c21_s4 = { "[4]동편으로 이동한다" ,NULL };
+SelectLinkedList c21_s1;
+SelectLinkedList c21_s2;
+SelectLinkedList c21_s3;
+SelectLinkedList c21_s4;
 
 //선택지 서편
-SelectLinkedList w1_s1 = { "[1]1-1반으로 간다",&w1_s2 };
-SelectLinkedList w1_s2 = { "[2]1-2반으로 간다",&w1_s3 };
-SelectLinkedList w1_s3 = { "[3]1-3반으로 간다",&w1_s4 };
-SelectLinkedList w1_s4 = { "[4]2-1반으로 간다",&w1_s5 };
-SelectLinkedList w1_s5 = { "[5]2-2반으로 간다",&w1_s6 };
-SelectLinkedList w1_s6 = { "[6]2-3반으로 간다",&w1_s7 };
-SelectLinkedList w1_s7 = { "[7]중앙복도로 간다",NULL };
+SelectLinkedList w1_s1;
+SelectLinkedList w1_s2;
+SelectLinkedList w1_s3;
+SelectLinkedList w1_s4;
+SelectLinkedList w1_s5;
+SelectLinkedList w1_s6;
+SelectLinkedList w1_s7;
 
 //선택지 1층
-SelectLinkedList p1_s1 = { "[1]인사과로 간다",&p1_s2 };
-SelectLinkedList p1_s2 = { "[2]군수과로 간다",&p1_s3 };
-SelectLinkedList p1_s3 = { "[3]대대장실로 간다",&p1_s4 };
-SelectLinkedList p1_s4 = { "[4]지휘통제실로 간다",&p1_s5 };
-SelectLinkedList p1_s5 = { "[5]주임원사실로 간다",&p1_s6 };
-SelectLinkedList p1_s6 = { "[6]통신물자 창고로 간다",&p1_s7 };
-SelectLinkedList p1_s7 = { "[7]총기함 실로 간다",&p1_s8 };
-SelectLinkedList p1_s8 = { "[8]중앙복도로 간다",NULL };
+SelectLinkedList p1_s1;
+SelectLinkedList p1_s2;
+SelectLinkedList p1_s3;
+SelectLinkedList p1_s4;
+SelectLinkedList p1_s5;
+SelectLinkedList p1_s6;
+SelectLinkedList p1_s7;
+SelectLinkedList p1_s8;
 
-SelectLinkedList p68_s1 = { "[1]숨는다",&p68_s2 };
-SelectLinkedList p68_s2 = { "[2]도망친다",NULL };
+SelectLinkedList p68_s1;
+SelectLinkedList p68_s2;
 
 //선택지 옥상
 
-SelectLinkedList r2_s1 = { "[1]통신망을 개통한다",&r2_s2 };
-SelectLinkedList r2_s2 = { "[2]2층 중앙복도로 내려간다",NULL };
+SelectLinkedList r2_s1;
+SelectLinkedList r2_s2;
 
 
-SelectLinkedList r31_s1 = { "[1]통신보안, 여기는 11사단 통신대대, 생존자 1명 대기중, 구조 바람.",&r31_s2 };
-SelectLinkedList r31_s2 = { "[2]여보세요??살려주세요!! 여기 사람이 있다구요!!!",&r31_s3 };
-SelectLinkedList r31_s3 = { "[3]당직 사령한테 연결해.빨리.",&r31_s4 };
-SelectLinkedList r31_s4 = { "[4]제가 통신대대 병장 박전역인데, 지금 옥상에 있거든요? 빨리 구하러 와주세요.빨리요",NULL };
+SelectLinkedList r31_s1;
+SelectLinkedList r31_s2;
+SelectLinkedList r31_s3;
+SelectLinkedList r31_s4;
 
 //선택지 공통
 SelectLinkedList explore = { "[1]탐색한다",&leave};
