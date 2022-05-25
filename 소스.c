@@ -25,7 +25,7 @@ int is_leaf = 0; // 단말 노드인가
 int is_true = 0; //조건이 참인가
 int is_exp = 0; //탐색하는가
 int is_item = 0;//아이템이 있는가
-
+int is_back = 0; //동편으로 돌아왔는가
 
 typedef const char element;
 
@@ -172,7 +172,7 @@ TreeNode c3;
 
 //2층 동편 루트(e)
 
-
+TreeNode er;
 TreeNode e1;
 TreeNode e2;
 TreeNode e21;
@@ -265,8 +265,10 @@ TextLinkedList f1_t3 = { "옆에는 간부연구실이 보인다.",NULL };
 TextLinkedList f1_t2 = { "복도 방향으로 칸막이가 막고있다.",&f1_t3 };
 TextLinkedList f1_t1 = { "격리생활관 앞이다.",&f1_t2 };
 
-TextLinkedList f2_t2 = { "코로나 사태 이후로 창고로 사용되는 것 같다.",NULL };
-TextLinkedList f2_t1 = { "간부연구실에 들어왔다.",&f2_t2 };
+TextLinkedList f2_t4 = { "코로나 사태 이후 창고로 사용되는 것 같다.",NULL };
+TextLinkedList f2_t3 = { "하지만 지금은 먼지만 쌓여있다.",&f2_t4 };
+TextLinkedList f2_t2 = { "매우 비좁은 1인 격리실이지만 있을 건 다 있는 모양세다.",&f2_t3 };
+TextLinkedList f2_t1 = { "간부연구실이다.",&f2_t2 };
 
 TextLinkedList f3_t1 = { "칸막이 문에 자물쇠가 걸려있는 것 같다.",NULL };
 
@@ -279,6 +281,12 @@ TextLinkedList f32_t2 = { "열쇠는 주변에서 찾을 수 있을 것 같다."
 TextLinkedList f32_t1 = { "[칸막이 열쇠]가 필요하다.",&f32_t2 };
 
 //텍스트 동편
+TextLinkedList er_t5 = { "필요한 것들을 찾을 수 있을 것 같다.",NULL };
+TextLinkedList er_t4 = { "왼쪽에는 화장실과 세탁실이 있다.",&er_t5 };
+TextLinkedList er_t3 = { "오른쪽에는 행정반이 보인다." ,&er_t4};
+TextLinkedList er_t2 = { "지나올 때 좀비는 없었으니 안심해도 될 것 같다.",&er_t3 };
+TextLinkedList er_t1 = { "분명 놓친게 있는 것 같다.",&er_t2 };
+
 TextLinkedList e1_t4 = { "오른쪽에는 화장실과 세탁실이 있다.",NULL };
 TextLinkedList e1_t3 = { "왼쪽에는 행정반이 보인다.",&e1_t4 };
 TextLinkedList e1_t2 = { "역광 때문에 어둡게 보이지만 정상은 아닌 것 같다.",&e1_t3 };
@@ -295,8 +303,10 @@ TextLinkedList e3_t1 = { "세탁기 위에 빨랫감이 그대로 쌓여있다."
 
 TextLinkedList e31_t1 = { "[차갑게 식은 냉동 만두]를 발견했다.",NULL };
 
-TextLinkedList e4_t4 = { "불길한 예감이 든다...빨리 움직여야 할 것 같다.",NULL };
-TextLinkedList e4_t3 = { "...당국은 내일인 6월 14일부터 대대적인 좀비 사태 대응 포격 감행 결정...",&e4_t4 };
+TextLinkedList e4_t6 = { "불길한 예감이 든다...빨리 움직여야 할 것 같다.",NULL }; 
+TextLinkedList e4_t5 = { "...예상 발원지인 홍천군부터 폭격 예정...",&e4_t6 };
+TextLinkedList e4_t4 = { "...좀비 사태 대응하여 좀비와의 전쟁을 선포...",&e4_t5 };
+TextLinkedList e4_t3 = { "...당국은 내일인 6월 14일부터 대대적인...",&e4_t4 };
 TextLinkedList e4_t2 = { "어디선가 라디오 소리가 작게 들린다.",&e4_t3 };
 TextLinkedList e4_t1 = { "아무 인기척도 느껴지지 않는다.",&e4_t2 };
 
@@ -311,9 +321,11 @@ TextLinkedList c1_t3 = { "설마 ㅅ서..성...윤모..?",&c1_t4 };
 TextLinkedList c1_t2 = { "익숙한 얼굴이 보인다..",&c1_t3 };
 TextLinkedList c1_t1 = { "복도 중앙에 좀비 무리가 있다.",&c1_t2 };
 
-TextLinkedList cr_t3 = { "일정한 기계음이 조금 더 크게 들린다.",NULL };
-TextLinkedList cr_t2 = { "좀비는 보이지 않는다.",&cr_t3 };
-TextLinkedList cr_t1 = { "//2층 중앙 복도//",&cr_t2 };
+TextLinkedList cr_t5 = { "어디선가 반복적인 기계음이 계속 들린다.",NULL };
+TextLinkedList cr_t4 = { "우웅ㅡ우웅ㅡ우웅ㅡ우웅ㅡ",&cr_t5 };
+TextLinkedList cr_t3 = { "이상한 소리만 제외하면 매우 고요하다.",&cr_t4 };
+TextLinkedList cr_t2 = { "좀비는 더 이상 보이지 않는다.",&cr_t3 };
+TextLinkedList cr_t1 = { "2층 중앙 복도",&cr_t2 };
 
 TextLinkedList c3_t3 = { "아무튼 아니다.",NULL };
 TextLinkedList c3_t2 = { "작전상 후퇴일뿐.",&c3_t3 };
@@ -322,15 +334,17 @@ TextLinkedList c3_t1 = { "이건 절대 도망치는게 아니다.",&c3_t2 };
 TextLinkedList c2_t1 = { "윤모는 인간이었을 때도 나약했으니 충분히 승산이 있을 것 같다.",NULL };
 
 
-TextLinkedList c21_t5 = { "이제 다른 곳으로 이동해야 할 것 같다.",NULL };
-TextLinkedList c21_t4 = { "더 이상 미동이 없다.",&c21_t5 };
+TextLinkedList c21_t6 = { "이제 다른 곳으로 이동해야 할 것 같다.",NULL };
+TextLinkedList c21_t5 = { "더 이상 미동이 없다.",&c21_t6 };
+TextLinkedList c21_t4 = { "[부러진 대걸레]를 잃었다.",&c21_t5 };
 TextLinkedList c21_t3 = { "대걸레가 꽂힌 채로 쓰러졌다.",&c21_t4 };
 TextLinkedList c21_t2 = { "[부러진 대걸레]로 숨통을 끊었다.",&c21_t3 };
 TextLinkedList c21_t1 = { "윤모야 미안하다..하지만 어쩔 수 없었다.",&c21_t2 };
 
-TextLinkedList c22_t3 = { "지금이라도 도망가야 할 것 같다.",NULL };
+TextLinkedList c22_t4 = { "간신히 2층 서편으로 도망쳐 왔다.",NULL };
+TextLinkedList c22_t3 = { "지금이라도 도망가야 할 것 같다.",&c22_t4 };
 TextLinkedList c22_t2 = { "내가 알 던 윤모가 아니다.",&c22_t3 };
-TextLinkedList c22_t1 = { "무기 없이는 무리인 것 같다.",&c22_t2 };
+TextLinkedList c22_t1 = { "헉,,,헉,,,무기 없이는 무리인 것 같다.",&c22_t2 };
 
 //텍스트 서편
 TextLinkedList w1_t3 = { "어쩌면 다른 생존자가 있을 수도 있을 것 같다.",NULL };
@@ -619,8 +633,9 @@ TextLinkedList b2_t1 = { "어느정도 시간이 흐른 것 같다.",&h2_t2 };
 TreeNode* ending[2] = { &r6,&r7 }; //엔딩 선택지
 TreeNode* pre[6] = { &p4,&p5,&p6,&p7,&p8,&cr };//
 TreeNode* west[5] = { &w4,&w5,&w6,&w7,&cr };//
-TreeNode* center[2] = { &r1,&e1 };//옥상과 동편 주소는 따로 저장
+TreeNode* center[2] = { &r1,&er };//옥상과 동편 주소는 따로 저장
 TreeNode* east[2] = { &e4,&c1 };//세탁실,행정반,중앙복도(첫번째)
+TreeNode* east2[2] = { &e4,&cr };
 
 //해피엔딩, 배드 엔딩, 게임오버 일단 오류 피하기 위해서 만들어놓음
 TreeNode happy1 = { &h1_t1,NULL,0,NULL,NULL,NULL };
@@ -646,20 +661,20 @@ TreeNode r7 = { &r4_t1,&confirm,0,&bad2,NULL,NULL };
 
 TreeNode p1 = { &p1_t1,&p1_s1,8,&p2,&p3,pre };//1층 로비
 TreeNode p2 = { &p2_t1,&explore,2,&p21,&p1,NULL };//인사과
-TreeNode p21 = { &p21_t1,&confirm,0,NULL,&p1,NULL };
+TreeNode p21 = { &p21_t1,&confirm,0,NULL,&p2,NULL };
 TreeNode p3 = { &p3_t1,&explore,2,&p31,&p1,NULL };//군수과
-TreeNode p31 = { &p31_t1,&confirm,0,NULL,&p1,NULL };
+TreeNode p31 = { &p31_t1,&confirm,0,NULL,&p3,NULL };
 TreeNode p4 = { &p4_t1,&confirm,0,NULL,&p1,NULL };//대대장실
 TreeNode p5 = { &p5_t1,&fight,2,&p51,&p1, NULL };//지휘통제실
 TreeNode p51 = { &p51_t1,&confirm,0,&p52,&p54, NULL };//무기가 있을 경우
 TreeNode p52 = { &p52_t1,&explore,2,&p53,&p1, NULL };//좀비 처치 후 탐색 -->주임원사실 열쇠 획득
-TreeNode p53 = { &p53_t1,&confirm,0,NULL,&p1, NULL };
+TreeNode p53 = { &p53_t1,&confirm,0,NULL,&p52, NULL };
 TreeNode p54 = { &p54_t1,&confirm,0,NULL,&gameover, NULL };//무기가 없을 경우
 TreeNode p6 = { &p6_t1,&confirm,0,&p61,&p62,NULL };//주임원사실
 TreeNode p61 = { &p61_t1,&explore,2,&p63,&p1,NULL };
-TreeNode p62 = { &p62_t1,&confirm,0,NULL,&p1,NULL };
+TreeNode p62 = { &p62_t1,&confirm,0,NULL,&p61,NULL };
 TreeNode p63 = { &p63_t1,&confirm,0,&p64,&p65,NULL };
-TreeNode p64 = { &p64_t1,&confirm,0,NULL,&p1,NULL };
+TreeNode p64 = { &p64_t1,&confirm,0,NULL,&p63,NULL };
 TreeNode p65 = { &p65_t1,&confirm,0,&p64,&p66,NULL };
 TreeNode p66 = { &p65_t1,&confirm,0,&p64,&p67,NULL };
 TreeNode p67 = { &p67_t1,&confirm,0,&p64,&p68,NULL };
@@ -667,11 +682,11 @@ TreeNode p68 = { &p68_t1,&p68_s1,2,&p69,&p610,NULL };
 TreeNode p69 = { &p69_t1,&explore,2,&p63,&p1,NULL };
 TreeNode p610 = { &p610_t1,&confirm,0,NULL,&gameover,NULL };
 TreeNode p7 = { &p7_t1,&explore,2,&p71,&p1,NULL };//통신물자창고
-TreeNode p71 = { &p71_t1,&confirm,0,NULL,&p1,NULL };
+TreeNode p71 = { &p71_t1,&confirm,0,NULL,&p7,NULL };
 TreeNode p8 = { &p8_t1,&explore,2,&p811,&p1,NULL };//총기함실
 TreeNode p811 = { &p811_t1,&confirm,0,&p81,&p82,NULL };
-TreeNode p81 = { &p81_t1,&confirm,0,NULL,&p1,NULL };
-TreeNode p82 = { &p82_t1,&confirm,0,NULL,&p1,NULL };
+TreeNode p81 = { &p81_t1,&confirm,0,&p8,&p8,NULL };
+TreeNode p82 = { &p82_t1,&confirm,0,&p8,&p8,NULL };
 
 //2층 서편 루트(w)
 
@@ -697,16 +712,16 @@ TreeNode w71 = { &w71_t1,&confirm,0,NULL,&w1,NULL };
 //2층 중앙 복도(c)
 
 
-TreeNode cr = { &cr_t1,&cr_s1,3,&w1,&p1,center }; //두 번째 방문부터 중앙복도의 텍스트와 선택지가 바뀜
+TreeNode cr = { &cr_t1,&cr_s1,4,&w1,&p1,center }; //두 번째 방문부터 중앙복도의 텍스트와 선택지가 바뀜
 TreeNode c1 = { &c1_t1,&fight,2,&c2,&c3,NULL }; // 첫 번째 방문 중앙복도 노드
 TreeNode c2 = { &c2_t1,&confirm,0,&c21,&c22,NULL };
 TreeNode c21 = { &c21_t1,&c21_s1,4,&w1,&p1,center }; //서편으로 갈시 왼쪽 링크, 1층으로 갈시 오른쪽 링크, 옥상으로 갈 시 center[0],동편으로 갈 시 center[1]
-TreeNode c22 = { &c22_t1,&confirm,0,NULL,&w1,NULL };
+TreeNode c22 = { &c22_t1,&confirm,0,&w1,&w1,NULL };
 TreeNode c3 = { &c3_t1,&c3_s1,2,&w1,&p1,NULL };
 
 //2층 동편 루트(e)
 
-
+TreeNode er = { &er_t1,&e1_s1,4,&e2,&e3,east2 };//동편으로 돌아왔을 때 노드
 TreeNode e1 = { &e1_t1,&e1_s1,4,&e2,&e3,east };
 TreeNode e2 = { &e2_t1,&explore,2,&e21,&e1,NULL };//화장실
 TreeNode e21 = { &e21_t1,&confirm,0,NULL,&e2,NULL };
@@ -755,6 +770,8 @@ void print_frame() {
 	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
 	printf("■  　　　　　　　                                                                              ■\n");
 	printf("■     　　                                                                                     ■\n");
+	printf("■                                                                                              ■\n");
+	printf("■                                                                                              ■\n");
 	printf("■                                                                                              ■\n");
 	printf("■                                                                                              ■\n");
 	printf("■                                                                                              ■\n");
@@ -1019,6 +1036,13 @@ int is_explore(TreeNode* pre) {
 	else
 		return 0;
 }
+void is_east_return(TreeNode* current) {
+	if (current == &er) {
+		TreeNode* temp = &e1;
+		temp->thead = current->thead;
+		temp->dptr = east2;
+	}
+}
 int checking_condition(TreeNode* current_node,ListNode* inventory) { //조건 검사 함수 오늘은 일단 여기까지
 
 	if (current_node == &f3) {//격리생활관 칸막이 열쇠 조건
@@ -1031,8 +1055,20 @@ int checking_condition(TreeNode* current_node,ListNode* inventory) { //조건 �
 			return 0; // 조건 거짓 반환
 		}
 	}
-	else if (current_node == &c2 || current_node == &p51) {//중앙복도(첫번째),지휘통제실: 무기가 있으면 참 없으면 거짓
-		return;//아직 미구현
+	else if (current_node == &c2 ) {//중앙복도(첫번째),지휘통제실: 무기가 있으면 참 없으면 거짓
+		is_item = searching(inventory, itemList[1]);
+		if (is_item) {
+			inventory = deleted(inventory, getdeleteNode(inventory, itemList[1]));
+			return 1;
+		}
+		else {
+			return 0;
+		}
+		
+	}
+	else if (current_node == &p51) {
+		//아직 미구현
+
 	}
 	else if (current_node == &r1) {
 		is_item = searching(inventory, itemList[3]);
@@ -1068,63 +1104,108 @@ int checking_condition(TreeNode* current_node,ListNode* inventory) { //조건 �
 ListNode* checking_inventory(TreeNode* current_node, ListNode* inventory) { 
 	if (current_node == &f21) {// 칸막이 열쇠
 		is_item = searching(inventory, itemList[0]);
-		if (!is_item) inventory = insert_last(inventory, itemList[0]);
+		if (!is_item && current_node->thead != &no_item) {
+			inventory = insert_last(inventory, itemList[0]);
+			current_node->thead = &no_item;
+		}
 	}
 	else if (current_node == &e21) { //부러진 대걸레
 		is_item = searching(inventory, itemList[1]);
-		if (!is_item) inventory = insert_last(inventory, itemList[1]);
+		if (!is_item && current_node->thead != &no_item) {
+			inventory = insert_last(inventory, itemList[1]);
+			current_node->thead = &no_item;
+		}
 	}
 	else if (current_node == &e31) { // 차갑게 식은 냉동 만두
 		is_item = searching(inventory, itemList[2]);
-		if (!is_item) inventory = insert_last(inventory, itemList[2]);
+		if (!is_item && current_node->thead != &no_item) {
+			inventory = insert_last(inventory, itemList[2]);
+			current_node->thead = &no_item;
+		}
 	}
 	else if (current_node == &e41) { // 그냥 열쇠
 		is_item = searching(inventory, itemList[3]);
-		if (!is_item) inventory = insert_last(inventory, itemList[3]);
+		if (!is_item && current_node->thead != &no_item) {
+			inventory = insert_last(inventory, itemList[3]);
+			current_node->thead = &no_item;
+		}
 	}
 	else if (current_node == &w2) { // 손전등
 		is_item = searching(inventory, itemList[4]);
-		if (!is_item) inventory = insert_last(inventory, itemList[4]);
+		if (!is_item && current_node->thead != &no_item) {
+			inventory = insert_last(inventory, itemList[4]);
+			current_node->thead = &no_item;
+		}
 	}
 	else if (current_node == &w31) { // 야채 건빵
 		is_item = searching(inventory, itemList[5]);
-		if (!is_item) inventory = insert_last(inventory, itemList[5]);
+		if (!is_item && current_node->thead != &no_item) {
+			inventory = insert_last(inventory, itemList[5]);
+			current_node->thead = &no_item;
+		}
 	}
 	else if (current_node == &w42) { //몽키 스패너
 		is_item = searching(inventory, itemList[6]);
-		if (!is_item) inventory = insert_last(inventory, itemList[6]);
+		if (!is_item && current_node->thead != &no_item) {}
+		inventory = insert_last(inventory, itemList[6]);
+		current_node->thead = &no_item;
 	}
 	else if (current_node == &w51) { // 붕대 
 		is_item = searching(inventory, itemList[7]);
-		if (!is_item) inventory = insert_last(inventory, itemList[7]);
+		if (!is_item && current_node->thead != &no_item) {
+			inventory = insert_last(inventory, itemList[7]);
+			current_node->thead = &no_item;
+		}
 	}
 	else if (current_node == &w61) { // 터보 라이터
 		is_item = searching(inventory, itemList[8]);
-		if (!is_item) inventory = insert_last(inventory, itemList[8]);
+		if (!is_item && current_node->thead != &no_item) {
+			inventory = insert_last(inventory, itemList[8]);
+			current_node->thead = &no_item;
+
+		}
 	}
 	else if (current_node == &w71) { // 손 소독제
 		is_item = searching(inventory, itemList[9]);
-		if (!is_item) inventory = insert_last(inventory, itemList[9]);
+		if (!is_item && current_node->thead != &no_item) {
+			inventory = insert_last(inventory, itemList[9]);
+			current_node->thead = &no_item;
+		}
 	}
 	else if (current_node == &p21) { // 총기함 키
 		is_item = searching(inventory, itemList[10]);
-		if (!is_item) inventory = insert_last(inventory, itemList[10]);
+		if (!is_item && current_node->thead != &no_item) {
+			inventory = insert_last(inventory, itemList[10]);
+			current_node->thead = &no_item;
+		}
 	}
 	else if (current_node == &p53) { //뭔지 모를 열쇠
 		is_item = searching(inventory, itemList[11]);
-		if (!is_item) inventory = insert_last(inventory, itemList[11]);
+		if (!is_item && current_node->thead != &no_item) {
+			inventory = insert_last(inventory, itemList[11]);
+			current_node->thead = &no_item;
+		}
 	}
 	else if (current_node == &p63) { //권총과 탄알집
 		is_item = searching(inventory, itemList[12]);
-		if (!is_item) inventory = insert_last(inventory, itemList[12]);
+		if (!is_item && current_node->thead != &no_item) {
+			inventory = insert_last(inventory, itemList[12]);
+
+		}
 	}
 	else if (current_node == &p71) {//노트북과 연결 포트
 		is_item = searching(inventory, itemList[14]);
-		if (!is_item) inventory = insert_last(inventory, itemList[14]);
+		if (!is_item && current_node->thead != &no_item) {
+			inventory = insert_last(inventory, itemList[14]);
+			current_node->thead = &no_item;
+		}
 	}
 	else if (current_node == &p81) { //k2 소총
 		is_item = searching(inventory, itemList[13]);
-		if (!is_item) inventory = insert_last(inventory, itemList[13]);
+		if (!is_item && current_node->thead != &no_item) {
+			inventory = insert_last(inventory, itemList[13]);
+			current_node->thead = &no_item;
+		}
 	}
 	return inventory;
 }
@@ -1133,28 +1214,20 @@ TreeNode* next_node(int y, TreeNode* current_node) {
 	switch (y) {
 		case SELECTSTARTPOS:
 			return current_node->left;
-			break;
 		case SELECTSTARTPOS + 1:
 			return current_node->right;
-			break;
 		case SELECTSTARTPOS + 2:
 			return current_node->dptr[0];
-			break;
 		case SELECTSTARTPOS + 3:
 			return current_node->dptr[1];
-			break;
 		case SELECTSTARTPOS + 4:
 			return current_node->dptr[2];
-			break;
 		case SELECTSTARTPOS + 5:
 			return current_node->dptr[3];
-			break;
 		case SELECTSTARTPOS + 6:
 			return current_node->dptr[4];
-			break;
 		case SELECTSTARTPOS + 7:
 			return current_node->dptr[5];
-			break;
 	}
 }
 
@@ -1188,7 +1261,7 @@ int main() {
 	TreeNode* pre;
 	ListNode* inventory = (ListNode*)malloc(sizeof(ListNode));
 	init(inventory);
-	system("mode con cols=98 lines=30"); // mode con:콘솔모드 cols:가로 lines:세로
+	//system("mode con cols=98 lines=30"); // mode con:콘솔모드 cols:가로 lines:세로
 
 	while (1) {
 		// 만약 TreeNode가 Null이라면 while문 종료
@@ -1207,13 +1280,16 @@ int main() {
 		is_leaf = is_leaf_node(current);
 		is_condi = is_condition_node(current);
 		is_exp = is_explore(pre);
-		if (is_exp) {
-			inventory = checking_inventory(current,inventory);
-		}
+		is_east_return(current);
 		if (is_leaf) {
 			print_console(current);
 			getchar();
+			if (is_exp) {
+				inventory = checking_inventory(current, inventory);
+				is_exp = 0;
+			}
 			current = current->right;
+			is_leaf = 0;
 		}
 		if (is_condi) {
 			is_true = checking_condition(current, inventory);
@@ -1221,6 +1297,7 @@ int main() {
 				print_console(current);
 				getchar();
 				current = current->left;
+				is_true = 0;
 			}
 			else {
 				print_console(current);
@@ -1228,6 +1305,8 @@ int main() {
 				current = current->right;
 			}
 		}
+
+
 		//격리생활관까지 수정완료
 		keyControlData.isSubmit = FALSE;
 	}
