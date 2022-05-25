@@ -1294,11 +1294,8 @@ int main() {
 	init(inventory);
 	system("mode con cols=100 lines=35"); // mode con:콘솔모드 cols:가로 lines:세로
 
-	while (1) {
+	while (current!=NULL) {
 		// 만약 TreeNode가 Null이라면 while문 종료
-		if (current == NULL) {
-			break;
-		}
 		print_console(current);
 
 		while (!keyControlData.isSubmit) {
