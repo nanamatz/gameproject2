@@ -192,7 +192,7 @@ TreeNode f32;
 SelectLinkedList f1_s2 = { "[2]칸막이 밖으로 나간다",NULL };
 SelectLinkedList f1_s1 = { "[1]간부연구실로 간다",&f1_s2 };
 //선택지 동편
-SelectLinkedList e1_s4 = { "[4]중앙복도로 간다",NULL };
+SelectLinkedList e1_s4 = { "[4]2층 중앙 복도로 간다",NULL };
 SelectLinkedList e1_s3 = { "[3]행정반으로 간다",&e1_s4 };
 SelectLinkedList e1_s2 = { "[2]세탁실로 간다",&e1_s3 };
 SelectLinkedList e1_s1 = { "[1]화장실로 간다",&e1_s2 };
@@ -201,20 +201,20 @@ SelectLinkedList e1_s1 = { "[1]화장실로 간다",&e1_s2 };
 
 //선택지 중앙복도(처음x)
 SelectLinkedList cr_s4 = { "[4]동편으로 이동한다" ,NULL };
-SelectLinkedList cr_s3 = { "[3]옥상으로 이동한다",&cr_s4 };
-SelectLinkedList cr_s2 = { "[2]1층으로 이동한다" ,&cr_s3 };
-SelectLinkedList cr_s1 = { "[1]서편으로 이동한다",&cr_s2 };
+SelectLinkedList cr_s3 = { "[3]옥상으로 올라간다",&cr_s4 };
+SelectLinkedList cr_s2 = { "[2]1층으로 내려간다" ,&cr_s3 };
+SelectLinkedList cr_s1 = { "[1]2층 서편으로 이동한다",&cr_s2 };
 
 SelectLinkedList c3_s2 = { "[2]1층으로 도망간다" ,NULL };
-SelectLinkedList c3_s1 = { "[1]서편으로 도망간다",&c3_s2 };
+SelectLinkedList c3_s1 = { "[1]2층 서편으로 도망간다",&c3_s2 };
 
-SelectLinkedList c21_s4 = { "[4]동편으로 이동한다" ,NULL };
-SelectLinkedList c21_s3 = { "[3]옥상으로 이동한다",&c21_s4 };
-SelectLinkedList c21_s2 = { "[2]1층으로 이동한다" ,&c21_s3 };
-SelectLinkedList c21_s1 = { "[1]서편으로 이동한다",&c21_s2 };
+SelectLinkedList c21_s4 = { "[4]2층 동편으로 이동한다" ,NULL };
+SelectLinkedList c21_s3 = { "[3]옥상으로 올라간다",&c21_s4 };
+SelectLinkedList c21_s2 = { "[2]1층으로 내려간다" ,&c21_s3 };
+SelectLinkedList c21_s1 = { "[1]2층 서편으로 이동한다",&c21_s2 };
 
 //선택지 서편
-SelectLinkedList w1_s7 = { "[7]중앙복도로 간다",NULL };
+SelectLinkedList w1_s7 = { "[7]2층 중앙 복도로 간다",NULL };
 SelectLinkedList w1_s6 = { "[6]2-3반으로 간다",&w1_s7 };
 SelectLinkedList w1_s5 = { "[5]2-2반으로 간다",&w1_s6 };
 SelectLinkedList w1_s4 = { "[4]2-1반으로 간다",&w1_s5 };
@@ -223,7 +223,7 @@ SelectLinkedList w1_s2 = { "[2]1-2반으로 간다",&w1_s3 };
 SelectLinkedList w1_s1 = { "[1]1-1반으로 간다",&w1_s2 };
 
 //선택지 1층
-SelectLinkedList p1_s8 = { "[8]중앙복도로 간다",NULL };
+SelectLinkedList p1_s8 = { "[8]2층 중앙 복도로 간다",NULL };
 SelectLinkedList p1_s7 = { "[7]총기함 실로 간다",&p1_s8 };
 SelectLinkedList p1_s6 = { "[6]통신물자 창고로 간다",&p1_s7 };
 SelectLinkedList p1_s5 = { "[5]주임원사실로 간다",&p1_s6 };
@@ -237,7 +237,7 @@ SelectLinkedList p68_s1 = { "[1]숨는다",&p68_s2 };
 
 //선택지 옥상
 
-SelectLinkedList r2_s2 = { "[2]2층 중앙복도로 내려간다",NULL };
+SelectLinkedList r2_s2 = { "[2]2층 중앙 복도로 내려간다",NULL };
 SelectLinkedList r2_s1 = { "[1]통신망을 개통한다",&r2_s2 };
 
 
@@ -285,7 +285,7 @@ TextLinkedList f32_t1 = { "[칸막이 열쇠]가 필요하다.",&f32_t2 };
 //텍스트 동편
 TextLinkedList er_t6 = { "필요한 것들을 찾을 수 있을 것 같다.",NULL };
 TextLinkedList er_t5 = { "왼쪽에는 화장실과 세탁실이 있다.",&er_t6 };
-TextLinkedList er_t4 = { "오른쪽에는 행정반이 보인다." ,&er_t5};
+TextLinkedList er_t4 = { "오른쪽에는 행정반이 보인다." ,&er_t5 };
 TextLinkedList er_t3 = { "지나올 때 좀비는 없었으니 안심해도 될 것 같다.",&er_t4 };
 TextLinkedList er_t2 = { "분명 놓친게 있는 것 같다.",&er_t3 };
 TextLinkedList er_t1 = { "[2층 동편]",&er_t2 };
@@ -309,7 +309,7 @@ TextLinkedList e3_t1 = { "[세탁실]",&e3_t2 };
 
 TextLinkedList e31_t1 = { "[차갑게 식은 냉동 만두]를 발견했다.",NULL };
 
-TextLinkedList e4_t7 = { "불길한 예감이 든다...빨리 움직여야 할 것 같다.",NULL }; 
+TextLinkedList e4_t7 = { "불길한 예감이 든다...빨리 움직여야 할 것 같다.",NULL };
 TextLinkedList e4_t6 = { "...예상 발원지인 홍천군부터 폭격 예정...",&e4_t7 };
 TextLinkedList e4_t5 = { "...좀비 사태 대응하여 좀비와의 전쟁을 선포...",&e4_t6 };
 TextLinkedList e4_t4 = { "...당국은 내일인 6월 14일부터 대대적인...",&e4_t5 };
@@ -421,7 +421,7 @@ TextLinkedList w7_t1 = { "[2-3생활관]",&w4_t2 };
 
 TextLinkedList w71_t1 = { "[손 소독제]를 발견했다.",NULL };
 
-//텍스트 1층--------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------텍스트 1층-------------------------------------------------------------------------------------
 
 TextLinkedList p1_t4 = { "그 외에는 침묵이 가득하다." ,NULL };
 TextLinkedList p1_t3 = { "아까부터 계속 미세한 기계음이 반복적으로 들린다..",&p1_t4 };
@@ -453,7 +453,7 @@ TextLinkedList p5_t6 = { "내가 보이는 화면에 이상한 형체가 같이 
 TextLinkedList p5_t5 = { "그런데... 뭔가 이상하다." ,&p5_t6 };
 TextLinkedList p5_t4 = { "옥상에는 좀비가 없는 것 같다." ,&p5_t5 };
 TextLinkedList p5_t3 = { "CCTV 감시 화면 곳곳에 좀비들 모습이 보인다..",&p5_t4 };
-TextLinkedList p5_t2 = { "항상 간부들이 북적거리던 곳이다.",&p5_t3};
+TextLinkedList p5_t2 = { "항상 간부들이 북적거리던 곳이다.",&p5_t3 };
 TextLinkedList p5_t1 = { "[지휘 통제실]",&p5_t2 };
 
 TextLinkedList p51_t1 = { "좀비가 매우 강력해보인다." ,NULL };
@@ -836,7 +836,7 @@ void print_console(TreeNode* current) {
 	printf(">");
 }
 // 키보드에서 입력받은 값 반환
-int KeyIn(TreeNode* current,ListNode* inventory) {
+int KeyIn(TreeNode* current, ListNode* inventory) {
 
 	int key = _getch(); // 키 입력받기
 	if (key == 224) {
@@ -856,11 +856,11 @@ int KeyIn(TreeNode* current,ListNode* inventory) {
 			break;
 		}
 	}
-	else if (key == ' '|| key == 13) {
+	else if (key == ' ' || key == 13) {
 		keyControlData.isSubmit = TRUE;
 		return READYTOINPUT;
 	}
-	else if (key == 73 || 105) {
+	else if (key == 73 || key== 105) {
 		print_frame();
 		print_list(inventory);
 		getchar();
@@ -868,7 +868,41 @@ int KeyIn(TreeNode* current,ListNode* inventory) {
 	}
 	return READYTOINPUT;
 }
-
+void print_map() {
+	system("cls");
+	Sleep(10);
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+	printf("■　■■■■■■■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+	printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+	printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+	printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+	printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+	printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+	printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+	printf("■　　　　　　　　　　　　　　　　　                         　　　　　　　　　　　　　　　　　 ■\n");
+	printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+	printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+	printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+	printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+	printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+	printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+	printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+	printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　                         　　 　　　　　　■\n");
+	printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+	printf("■                                                                                              ■\n");
+	printf("■  　　　　　　　                                                                              ■\n");
+	printf("■     　　                                                                                     ■\n");
+	printf("■                                                                                              ■\n");
+	printf("■                                                                                              ■\n");
+	printf("■                                                                                              ■\n");
+	printf("■                                                                                              ■\n");
+	printf("■                                                                                              ■\n");
+	printf("■                                                                                              ■\n");
+	printf("■                                                                                              ■\n");
+	printf("■                                                                                              ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+}
 // 키보드에서 입력받은 값을 토대로 화면에 출력
 int KeyPrint() {
 	switch (keyControlData.key)
@@ -1074,19 +1108,19 @@ void is_east_return(TreeNode* current) {
 		temp->dptr = east2;
 	}
 }
-int checking_condition(TreeNode* current_node,ListNode* inventory) { //조건 검사 함수 오늘은 일단 여기까지
+int checking_condition(TreeNode* current_node, ListNode* inventory) { //조건 검사 함수 오늘은 일단 여기까지
 
 	if (current_node == &f3) {//격리생활관 칸막이 열쇠 조건
 		is_item = searching(inventory, itemList[0]);
 		if (is_item) {
-			inventory = deleted(inventory, getdeleteNode(inventory,itemList[0])); // 아이템 사용 후 삭제
+			inventory = deleted(inventory, getdeleteNode(inventory, itemList[0])); // 아이템 사용 후 삭제
 			return 1; // 조건 참 반환
 		}
 		else {
 			return 0; // 조건 거짓 반환
 		}
 	}
-	else if (current_node == &c2 ) {//중앙복도(첫번째),지휘통제실: 무기가 있으면 참 없으면 거짓
+	else if (current_node == &c2) {//중앙복도(첫번째),지휘통제실: 무기가 있으면 참 없으면 거짓
 		is_item = searching(inventory, itemList[1]);
 		if (is_item) {
 			inventory = deleted(inventory, getdeleteNode(inventory, itemList[1]));
@@ -1095,7 +1129,7 @@ int checking_condition(TreeNode* current_node,ListNode* inventory) { //조건 �
 		else {
 			return 0;
 		}
-		
+
 	}
 	else if (current_node == &p51) {
 		//아직 미구현
@@ -1132,7 +1166,7 @@ int checking_condition(TreeNode* current_node,ListNode* inventory) { //조건 �
 		}
 	}
 }
-ListNode* checking_inventory(TreeNode* current_node, ListNode* inventory) { 
+ListNode* checking_inventory(TreeNode* current_node, ListNode* inventory) {
 	if (current_node == &f21) {// 칸막이 열쇠
 		is_item = searching(inventory, itemList[0]);
 		if (!is_item && current_node->thead != &no_item) {
@@ -1243,26 +1277,26 @@ ListNode* checking_inventory(TreeNode* current_node, ListNode* inventory) {
 
 TreeNode* next_node(int y, TreeNode* current_node) {
 	switch (y) {
-		case SELECTSTARTPOS:
-			return current_node->left;
-		case SELECTSTARTPOS + 1:
-			return current_node->right;
-		case SELECTSTARTPOS + 2:
-			return current_node->dptr[0];
-		case SELECTSTARTPOS + 3:
-			return current_node->dptr[1];
-		case SELECTSTARTPOS + 4:
-			return current_node->dptr[2];
-		case SELECTSTARTPOS + 5:
-			return current_node->dptr[3];
-		case SELECTSTARTPOS + 6:
-			return current_node->dptr[4];
-		case SELECTSTARTPOS + 7:
-			return current_node->dptr[5];
+	case SELECTSTARTPOS:
+		return current_node->left;
+	case SELECTSTARTPOS + 1:
+		return current_node->right;
+	case SELECTSTARTPOS + 2:
+		return current_node->dptr[0];
+	case SELECTSTARTPOS + 3:
+		return current_node->dptr[1];
+	case SELECTSTARTPOS + 4:
+		return current_node->dptr[2];
+	case SELECTSTARTPOS + 5:
+		return current_node->dptr[3];
+	case SELECTSTARTPOS + 6:
+		return current_node->dptr[4];
+	case SELECTSTARTPOS + 7:
+		return current_node->dptr[5];
 	}
 }
 
-TreeNode* checking_node(int y, TreeNode* current_node, ListNode* inventory) { 
+TreeNode* checking_node(int y, TreeNode* current_node, ListNode* inventory) {
 	is_condi = is_condition_node(current_node);
 	if (is_condi) {//조건 노드이면 조건 검사 후 조건에 맞는 노드로 이동한 노드 주소 반환
 		is_true = checking_condition(current_node, inventory);
@@ -1283,7 +1317,7 @@ TreeNode* checking_node(int y, TreeNode* current_node, ListNode* inventory) {
 		return current_node->right;
 	}
 	return current_node; //조건도 아니고 단말도 아니면 현재 노드 주소 반환
-	}
+}
 
 
 
@@ -1294,12 +1328,12 @@ int main() {
 	init(inventory);
 	system("mode con cols=100 lines=35"); // mode con:콘솔모드 cols:가로 lines:세로
 
-	while (current!=NULL) {
+	while (current != NULL) {
 		// 만약 TreeNode가 Null이라면 while문 종료
 		print_console(current);
 
 		while (!keyControlData.isSubmit) {
-			keyControlData.key = KeyIn(current,inventory);
+			keyControlData.key = KeyIn(current, inventory);
 			KeyPrint();
 			Sleep(1);
 		}
