@@ -36,6 +36,10 @@ typedef struct ListNode {
 	struct ListNode* link;
 } ListNode;
 
+typedef struct PlayerStat {
+	int hp;
+
+}PlayerStat;
 
 typedef struct {
 	int limitMinY; // 홈메뉴 최상단 y값 이 값을 통해 사용자가 맨 위에서 더 이동하려고 하는 상황 해결
@@ -63,6 +67,7 @@ typedef struct TreeNode {
 	int maxindex;
 	struct TreeNode* left, * right;
 	struct TreeNode** dptr;		//선택지가 많아서 구조체포인터 배열 주소를 받는 이중포인터
+	const char* current_pos;
 }TreeNode;
 
 // 변수 선언
@@ -91,6 +96,8 @@ int searching(ListNode* head, element* data);
 ListNode* getdeleteNode(ListNode* head, element* data);
 void init(ListNode* head);
 
+void map_print();
+PlayerStat Player;
 //=============================================================노드 선언부=============================================================
 TreeNode happy1;
 TreeNode happy2;
@@ -669,104 +676,104 @@ TreeNode* east[2] = { &e4,&c1 };//세탁실,행정반,중앙복도(첫번째)
 TreeNode* east2[2] = { &e4,&cr };
 
 //해피엔딩, 배드 엔딩, 게임오버 일단 오류 피하기 위해서 만들어놓음
-TreeNode happy1 = { &h1_t1,NULL,0,NULL,NULL,NULL };
-TreeNode happy2 = { &h2_t1,NULL,0,NULL,NULL,NULL };
-TreeNode bad1 = { &b1_t1,NULL,0,NULL,NULL,NULL };
-TreeNode bad2 = { &b2_t1,NULL,0,NULL,NULL,NULL };
-TreeNode gameover = { NULL,NULL,NULL };
+TreeNode happy1 = { &h1_t1,NULL,0,NULL,NULL,NULL,NULL };
+TreeNode happy2 = { &h2_t1,NULL,0,NULL,NULL,NULL,NULL };
+TreeNode bad1 = { &b1_t1,NULL,0,NULL,NULL,NULL,NULL };
+TreeNode bad2 = { &b2_t1,NULL,0,NULL,NULL,NULL,NULL };
+TreeNode gameover = { NULL,NULL,NULL,NULL };
 
 //옥상 루트(r)
 
-TreeNode r1 = { &r1_t1,&confirm,0,&r2,&cr,NULL };//옥상열쇠가 있는가
-TreeNode r2 = { &r2_t1,&r2_s1,2,&r3,&cr,NULL };//1망개통 한다 2중앙복도로 내려간다
-TreeNode r3 = { &r3_t1,&confirm,0,&r31,&r32,NULL }; //연결포트와 노트북이 있는가
-TreeNode r31 = { &r31_t1,&r31_s1,4,&r4,&r5,ending };//연결포트와 노트북이 있는 경우
-TreeNode r32 = { &r32_t1,&confirm,0,&r2,NULL,NULL };//연결포트와 노트북이 없는 경우
-TreeNode r4 = { &r4_t1,&confirm,0,&bad1,NULL,NULL };
-TreeNode r5 = { &r4_t1,&confirm,0,&happy1,NULL ,NULL };
-TreeNode r6 = { &r4_t1,&confirm,0,&happy2,NULL,NULL };
-TreeNode r7 = { &r4_t1,&confirm,0,&bad2,NULL,NULL };
+TreeNode r1 = { &r1_t1,&confirm,0,&r2,&cr,NULL,"[옥상]" };//옥상열쇠가 있는가
+TreeNode r2 = { &r2_t1,&r2_s1,2,&r3,&cr,NULL,"[옥상]" };//1망개통 한다 2중앙복도로 내려간다
+TreeNode r3 = { &r3_t1,&confirm,0,&r31,&r32,NULL,"[옥상]" }; //연결포트와 노트북이 있는가
+TreeNode r31 = { &r31_t1,&r31_s1,4,&r4,&r5,ending,"[옥상]" };//연결포트와 노트북이 있는 경우
+TreeNode r32 = { &r32_t1,&confirm,0,&r2,NULL,NULL,"[옥상]" };//연결포트와 노트북이 없는 경우
+TreeNode r4 = { &r4_t1,&confirm,0,&bad1,NULL,NULL,"[옥상]" };
+TreeNode r5 = { &r4_t1,&confirm,0,&happy1,NULL ,NULL,"[옥상]" };
+TreeNode r6 = { &r4_t1,&confirm,0,&happy2,NULL,NULL,"[옥상]" };
+TreeNode r7 = { &r4_t1,&confirm,0,&bad2,NULL,NULL,"[옥상]" };
 
 //1층 루트(p)
 
 
-TreeNode p1 = { &p1_t1,&p1_s1,8,&p2,&p3,pre };//1층 로비
-TreeNode p2 = { &p2_t1,&explore,2,&p21,&p1,NULL };//인사과
-TreeNode p21 = { &p21_t1,&confirm,0,NULL,&p2,NULL };
-TreeNode p3 = { &p3_t1,&explore,2,&p31,&p1,NULL };//군수과
-TreeNode p31 = { &p31_t1,&confirm,0,NULL,&p3,NULL };
-TreeNode p4 = { &p4_t1,&confirm,0,NULL,&p1,NULL };//대대장실
-TreeNode p5 = { &p5_t1,&fight,2,&p51,&p1, NULL };//지휘통제실
-TreeNode p51 = { &p51_t1,&confirm,0,&p52,&p54, NULL };//무기가 있을 경우
-TreeNode p52 = { &p52_t1,&explore,2,&p53,&p1, NULL };//좀비 처치 후 탐색 -->주임원사실 열쇠 획득
-TreeNode p53 = { &p53_t1,&confirm,0,NULL,&p52, NULL };
-TreeNode p54 = { &p54_t1,&confirm,0,NULL,&gameover, NULL };//무기가 없을 경우
-TreeNode p6 = { &p6_t1,&confirm,0,&p61,&p62,NULL };//주임원사실
-TreeNode p61 = { &p61_t1,&explore,2,&p63,&p1,NULL };
-TreeNode p62 = { &p62_t1,&confirm,0,NULL,&p61,NULL };
-TreeNode p63 = { &p63_t1,&confirm,0,&p64,&p65,NULL };
-TreeNode p64 = { &p64_t1,&confirm,0,NULL,&p63,NULL };//금고 비밀번호가 맞을 시
-TreeNode p65 = { &p65_t1,&confirm,0,&p64,&p66,NULL };
-TreeNode p66 = { &p65_t1,&confirm,0,&p64,&p67,NULL };
-TreeNode p67 = { &p67_t1,&confirm,0,&p64,&p68,NULL };
-TreeNode p68 = { &p68_t1,&p68_s1,2,&p69,&p610,NULL };//비밀번호 3회 오류시 좀비
-TreeNode p69 = { &p69_t1,&explore,2,&p63,&p1,NULL };
-TreeNode p610 = { &p610_t1,&confirm,0,NULL,&gameover,NULL };
-TreeNode p7 = { &p7_t1,&explore,2,&p71,&p1,NULL };//통신물자창고
-TreeNode p71 = { &p71_t1,&confirm,0,NULL,&p7,NULL };
-TreeNode p8 = { &p8_t1,&explore,2,&p811,&p1,NULL };//총기함실
-TreeNode p811 = { &p811_t1,&confirm,0,&p81,&p82,NULL };
-TreeNode p81 = { &p81_t1,&confirm,0,&p8,&p8,NULL };
-TreeNode p82 = { &p82_t1,&confirm,0,&p8,&p8,NULL };
+TreeNode p1 = { &p1_t1,&p1_s1,8,&p2,&p3,pre,"1층 중앙 현관" };//1층 중앙 현관
+TreeNode p2 = { &p2_t1,&explore,2,&p21,&p1,NULL,"[인사과]" };//인사과
+TreeNode p21 = { &p21_t1,&confirm,0,NULL,&p2,NULL,"[인사과]" };
+TreeNode p3 = { &p3_t1,&explore,2,&p31,&p1,NULL, "[군수과]" };//군수과
+TreeNode p31 = { &p31_t1,&confirm,0,NULL,&p3,NULL, "[군수과]" };
+TreeNode p4 = { &p4_t1,&confirm,0,NULL,&p1,NULL,"[1층 중앙 현관]" };//대대장실
+TreeNode p5 = { &p5_t1,&fight,2,&p51,&p1, NULL,"[지휘통제실]" };//지휘통제실
+TreeNode p51 = { &p51_t1,&confirm,0,&p52,&p54, NULL,"[지휘통제실]" };//무기가 있을 경우
+TreeNode p52 = { &p52_t1,&explore,2,&p53,&p1, NULL,"[지휘통제실]" };//좀비 처치 후 탐색 -->주임원사실 열쇠 획득
+TreeNode p53 = { &p53_t1,&confirm,0,NULL,&p52, NULL,"[지휘통제실]" };
+TreeNode p54 = { &p54_t1,&confirm,0,NULL,&gameover, NULL,"[지휘통제실]" };//무기가 없을 경우
+TreeNode p6 = { &p6_t1,&confirm,0,&p61,&p62,NULL,"[주임원사실]" };//주임원사실
+TreeNode p61 = { &p61_t1,&explore,2,&p63,&p1,NULL,"[주임원사실]" };
+TreeNode p62 = { &p62_t1,&confirm,0,NULL,&p61,NULL,"[주임원사실]" };
+TreeNode p63 = { &p63_t1,&confirm,0,&p64,&p65,NULL,"[주임원사실]" };
+TreeNode p64 = { &p64_t1,&confirm,0,NULL,&p63,NULL,"[주임원사실]" };//금고 비밀번호가 맞을 시
+TreeNode p65 = { &p65_t1,&confirm,0,&p64,&p66,NULL,"[주임원사실]" };
+TreeNode p66 = { &p65_t1,&confirm,0,&p64,&p67,NULL,"[주임원사실]" };
+TreeNode p67 = { &p67_t1,&confirm,0,&p64,&p68,NULL,"[주임원사실]" };
+TreeNode p68 = { &p68_t1,&p68_s1,2,&p69,&p610,NULL,"[주임원사실]" };//비밀번호 3회 오류시 좀비
+TreeNode p69 = { &p69_t1,&explore,2,&p63,&p1,NULL,"[주임원사실]" };
+TreeNode p610 = { &p610_t1,&confirm,0,NULL,&gameover,NULL,"[주임원사실]" };
+TreeNode p7 = { &p7_t1,&explore,2,&p71,&p1,NULL,"[통신물자창고]" };//통신물자창고
+TreeNode p71 = { &p71_t1,&confirm,0,NULL,&p7,NULL,"[통신물자창고]" };
+TreeNode p8 = { &p8_t1,&explore,2,&p811,&p1,NULL, "[총기함실]" };//총기함실
+TreeNode p811 = { &p811_t1,&confirm,0,&p81,&p82,NULL, "[총기함실]" };
+TreeNode p81 = { &p81_t1,&confirm,0,&p8,&p8,NULL, "[총기함실]" };
+TreeNode p82 = { &p82_t1,&confirm,0,&p8,&p8,NULL, "[총기함실]" };
 
 //2층 서편 루트(w)
 
-TreeNode w1 = { &w1_t1,&w1_s1,7 ,&w2,&w3,west };//서편 로비
-TreeNode w2 = { &w2_t1,&explore,2,&w21,&w1,NULL };//1-1반
-TreeNode w21 = { &w21_t1,&confirm,0,NULL,&w2,NULL }; // 손전등
-TreeNode w3 = { &w3_t1,&explore,2,&w31,&w1,NULL };//1-2반
-TreeNode w31 = { &w31_t1,&confirm,0,NULL,&w3,NULL }; // 야채 건빵
-TreeNode w4 = { &w4_t1,&fight,2,&w41,&w42,NULL };//1-3반
-TreeNode w41 = { &w41_t1,&explore,2,&w43,&w1,NULL };
-TreeNode w42 = { &w42_t1,&confirm,0,NULL,&w1,NULL };
-TreeNode w43 = { &w43_t1,&confirm,0,NULL,&w41,NULL }; // 몽키 스패너
-TreeNode w5 = { &w5_t1,&explore,2 ,&w51,&w1,NULL };//2-1반
-TreeNode w51 = { &w51_t1,&confirm,0,NULL,&w5,NULL }; // 터보 라이터
-TreeNode w6 = { &w6_t1,&fight,2 ,&w61,&w62,NULL };//2-2반
-TreeNode w61 = { &w61_t1,&explore,2 ,&w63,&w1,NULL };
-TreeNode w62 = { &w62_t1,&confirm,0,NULL,&w1,NULL };
-TreeNode w63 = { &w63_t1,&confirm,0,NULL,&w61,NULL }; // 붕대
-TreeNode w7 = { &w7_t1,&explore,2 ,&w71,&w1,NULL };//2-3반
-TreeNode w71 = { &w71_t1,&confirm,0,NULL,&w7,NULL }; // 손소독제
+TreeNode w1 = { &w1_t1,&w1_s1,7 ,&w2,&w3,west,"[2층 서편 복도]" };//서편 로비
+TreeNode w2 = { &w2_t1,&explore,2,&w21,&w1,NULL,"[1-1반]" };//1-1반
+TreeNode w21 = { &w21_t1,&confirm,0,NULL,&w2,NULL,"[1-1반]" }; // 손전등
+TreeNode w3 = { &w3_t1,&explore,2,&w31,&w1,NULL,"[1-2반]" };//1-2반
+TreeNode w31 = { &w31_t1,&confirm,0,NULL,&w3,NULL,"[1-2반]" }; // 야채 건빵
+TreeNode w4 = { &w4_t1,&fight,2,&w41,&w42,NULL,"[1-3반]" };//1-3반
+TreeNode w41 = { &w41_t1,&explore,2,&w43,&w1,NULL,"[1-3반]" };
+TreeNode w42 = { &w42_t1,&confirm,0,NULL,&w1,NULL,"[1-3반]" };
+TreeNode w43 = { &w43_t1,&confirm,0,NULL,&w41,NULL,"[1-3반]" }; // 몽키 스패너
+TreeNode w5 = { &w5_t1,&explore,2 ,&w51,&w1,NULL,"[2-1반]" };//2-1반
+TreeNode w51 = { &w51_t1,&confirm,0,NULL,&w5,NULL,"[2-1반]" }; // 터보 라이터
+TreeNode w6 = { &w6_t1,&fight,2 ,&w61,&w62,NULL,"[2-2반]" };//2-2반
+TreeNode w61 = { &w61_t1,&explore,2 ,&w63,&w1,NULL,"[2-2반]" };
+TreeNode w62 = { &w62_t1,&confirm,0,NULL,&w1,NULL,"[2-2반]" };
+TreeNode w63 = { &w63_t1,&confirm,0,NULL,&w61,NULL,"[2-2반]" }; // 붕대
+TreeNode w7 = { &w7_t1,&explore,2 ,&w71,&w1,NULL,"[2-3반]" };//2-3반
+TreeNode w71 = { &w71_t1,&confirm,0,NULL,&w7,NULL,"[2-3반]" }; // 손소독제
 
 //2층 중앙 복도(c)
 
 
-TreeNode cr = { &cr_t1,&cr_s1,4,&w1,&p1,center }; //두 번째 방문부터 중앙복도의 텍스트와 선택지가 바뀜
-TreeNode c1 = { &c1_t1,&fight,2,&c2,&c3,NULL }; // 첫 번째 방문 중앙복도 노드
-TreeNode c2 = { &c2_t1,&confirm,0,&c21,&c22,NULL };
-TreeNode c21 = { &c21_t1,&c21_s1,4,&w1,&p1,center }; //서편으로 갈시 왼쪽 링크, 1층으로 갈시 오른쪽 링크, 옥상으로 갈 시 center[0],동편으로 갈 시 center[1]
-TreeNode c22 = { &c22_t1,&confirm,0,&w1,&w1,NULL };
-TreeNode c3 = { &c3_t1,&c3_s1,2,&w1,&p1,NULL };
+TreeNode cr = { &cr_t1,&cr_s1,4,&w1,&p1,center,"[2층 중앙 복도]" }; //두 번째 방문부터 중앙복도의 텍스트와 선택지가 바뀜
+TreeNode c1 = { &c1_t1,&fight,2,&c2,&c3,NULL,"[2층 중앙 복도]" }; // 첫 번째 방문 중앙복도 노드
+TreeNode c2 = { &c2_t1,&confirm,0,&c21,&c22,NULL,"[2층 중앙 복도]" };
+TreeNode c21 = { &c21_t1,&c21_s1,4,&w1,&p1,center,"[2층 중앙 복도]" }; //서편으로 갈시 왼쪽 링크, 1층으로 갈시 오른쪽 링크, 옥상으로 갈 시 center[0],동편으로 갈 시 center[1]
+TreeNode c22 = { &c22_t1,&confirm,0,&w1,&w1,NULL,"[2층 중앙 복도]" };
+TreeNode c3 = { &c3_t1,&c3_s1,2,&w1,&p1,NULL,"[2층 중앙 복도]" };
 
 //2층 동편 루트(e)
 
-TreeNode er = { &er_t1,&e1_s1,4,&e2,&e3,east2 };//동편으로 돌아왔을 때 노드
-TreeNode e1 = { &e1_t1,&e1_s1,4,&e2,&e3,east };
-TreeNode e2 = { &e2_t1,&explore,2,&e21,&e1,NULL };//화장실
-TreeNode e21 = { &e21_t1,&confirm,0,NULL,&e2,NULL };
-TreeNode e3 = { &e3_t1,&explore,2,&e31,&e1,NULL };//세탁실
-TreeNode e31 = { &e31_t1,&confirm,0,NULL,&e3,NULL };
-TreeNode e4 = { &e4_t1,&explore,2,&e41,&e1,NULL };//행정반
-TreeNode e41 = { &e41_t1,&confirm,0,NULL,&e4,NULL };
+TreeNode er = { &er_t1,&e1_s1,4,&e2,&e3,east2,"[2층 동편 복도]" };//동편으로 돌아왔을 때 노드
+TreeNode e1 = { &e1_t1,&e1_s1,4,&e2,&e3,east ,"[2층 동편 복도]" };
+TreeNode e2 = { &e2_t1,&explore,2,&e21,&e1,NULL,"[화장실]" };//화장실
+TreeNode e21 = { &e21_t1,&confirm,0,NULL,&e2,NULL,"[화장실]" };
+TreeNode e3 = { &e3_t1,&explore,2,&e31,&e1,NULL,"[세탁실]" };//세탁실
+TreeNode e31 = { &e31_t1,&confirm,0,NULL,&e3,NULL,"[세탁실]" };
+TreeNode e4 = { &e4_t1,&explore,2,&e41,&e1,NULL,"[행정반]" };//행정반
+TreeNode e41 = { &e41_t1,&confirm,0,NULL,&e4,NULL,"[행정반]" };
 //격리생활관 루트 (f)
 
-TreeNode f1 = { &f1_t1,&f1_s1,2,&f2,&f3 ,NULL }; //간부연구실로 간다 밖으로 나간다
-TreeNode f2 = { &f2_t1,&explore,2,&f21,&f1 ,NULL };//탐색한다 떠난다
-TreeNode f3 = { &f3_t1,&confirm, 0, &f31,&f32 ,NULL };//조건 노드(열쇠가 있는지 없는지)
-TreeNode f21 = { &f21_t1,&confirm,0,NULL,&f2,NULL };//열쇠 발견하는 탐색 노드
-TreeNode f31 = { &f31_t1,&confirm,0,&e1,&e1,NULL };//열쇠가 있을 시 동편으로 이동하는 단말 노드
-TreeNode f32 = { &f32_t1,&confirm,0,&f1,&f1,NULL };//열쇠가 없을 시 격리생활관 앞으로 이동하는 단말노드
+TreeNode f1 = { &f1_t1,&f1_s1,2,&f2,&f3 ,NULL,"[격리 생활관 앞]" }; //간부연구실로 간다 밖으로 나간다
+TreeNode f2 = { &f2_t1,&explore,2,&f21,&f1 ,NULL,"[간부연구실]" };//탐색한다 떠난다
+TreeNode f3 = { &f3_t1,&confirm, 0, &f31,&f32 ,NULL,"[간부연구실]" };//조건 노드(열쇠가 있는지 없는지)
+TreeNode f21 = { &f21_t1,&confirm,0,NULL,&f2,NULL,"[간부연구실]" };//열쇠 발견하는 탐색 노드
+TreeNode f31 = { &f31_t1,&confirm,0,&e1,&e1,NULL,"[격리 생활관 앞]" };//열쇠가 있을 시 동편으로 이동하는 단말 노드
+TreeNode f32 = { &f32_t1,&confirm,0,&f1,&f1,NULL,"[격리 생활관 앞]" };//열쇠가 없을 시 격리생활관 앞으로 이동하는 단말노드
 
 //헤더 루트
 TreeNode* root = &f1;
@@ -840,6 +847,46 @@ void print_console(TreeNode* current) {
 	gotoxy();
 	printf(">");
 }
+void map_print(TreeNode* current) {
+	system("cls");
+	Sleep(10);
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	printf("■　　　　　　　　　　　　　　　　　　　　　　 옥상 　　　　　　　　　　　　　　　　　　　　　　■\n");
+	printf("■　■■■■■■■■■■■■■■■■■■■■　▲▲▲　■■■■■■■■■■■■■■■■■■■■  ■\n");
+	printf("■　■　　　　　■　　　　　■　　  　　■　　　　　　　■　　　  　■　　　　  ■　  　　　■　■\n");
+	printf("■　■　 1-1　　■　 1-2　　■　 1-3　　■　　　　　　　■　화장실　■　세탁실　■격리생활관■　■\n");
+	printf("■　■　　　　　■　　　　　■　　  　　■　　　　　　　■　　　　　■　　　　  ■　　　　　■　■\n");
+	printf("■  ■■■■■▲■■■■■▲■■■■■▲■　　　　　　　■▲■■■■■▲■■■■■▲■■■■■  ■\n");
+	printf("■　■　　　　　　2층 서편　　　　　　　　 2층 중앙 복도　  　2층 동편　　　칸막이　　　　　■　■\n");
+	printf("■　■■■■■▼■■■■■▼■■■■■▼■　　　　　　　■▼■■■■■■■■■■■▼■■■■■  ■\n");
+	printf("■　■　　　　　■　　　　　■　　　  　■　　　　　　　■　　  　　　　　  ■　　　　　　　■　■\n");
+	printf("■　■　 2-1　　■　 2-2　　■　 2-3  　■　　　　　　  ■ 　2중대 행정반 　■　간부연구실　■　■\n");
+	printf("■　■　　　　　■　　　　　■　　　  　■　　　　　　　■  　　　　　　　  ■　　　　　　　■　■\n");
+	printf("■  ■■■■■■■■■■■■■■■■■■■■　　　　　■■■■■■■■■■■■■■■■■■■■  ■\n");
+	printf("■　■　　　　　　　　　■　　　　  　　■　　　　　　　■　　　  　　　　■　  　　  　　　■　■\n");
+	printf("■　■　　총기함실　　　■　　인사과　　■　　　　　　　■　　군수과　　　■　통신물자창고　■　■\n");
+	printf("■　■　　　　　　　　　■　　　　  　　■　　　　　　　■　　　　　　　　■　  　　　　　　■　■\n");
+	printf("■  ■■■■■■■■■▲■■■■■■■▲■　　　　　　　■▲■■■■■■■■▲■■■■■■■■  ■\n");
+	printf("■　■　　　　　　　　　　　　　　　　　　 1층 중앙 복도　  　　　　　　　　　　　　　　　　■　■\n");
+	printf("■　■■■■■■■■■■■■■■■■■▼■　　　　　　　■▼■■■■■■■■▼■■■■■■■■  ■\n");
+	printf("■　■　　　　　　　　　　　　　　　  　■　　　　　　　■　　  　　　　　■　　　　　　　　■　■\n");
+	printf("■　■ 　　　　　지휘 통제실　　　　　　■　　　　　　  ■　주임 원사실 　■　　대대장실　　■　■\n");
+	printf("■　■　　　　　　　　　　　　　　　  　■　　　　　　　■  　　　　　　　■　　　　　　　　■　■\n");
+	printf("■  ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  ■\n");
+	printf("■                                                                                              ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	printf("■                                                                                              ■\n");
+	printf("■                                                                                              ■\n");
+	printf("■　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　■\n");
+	printf("■                                                                                              ■\n");
+	printf("■                                                                                              ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	pos.X = 4;
+	pos.Y = 26;
+	gotoxy();
+	printf("현재 위치 : %s  >[확인]", current->current_pos);
+
+}
 // 키보드에서 입력받은 값 반환
 int KeyIn(TreeNode* current,ListNode* inventory) {
 
@@ -865,9 +912,14 @@ int KeyIn(TreeNode* current,ListNode* inventory) {
 		keyControlData.isSubmit = TRUE;
 		return READYTOINPUT;
 	}
-	else if (key == 73 || 105) {
+	else if (key == 73 || key == 105) {
 		print_frame();
 		print_list(inventory);
+		getchar();
+		print_console(current);
+	}
+	else if (key == 77 || key == 109) {
+		map_print(current);
 		getchar();
 		print_console(current);
 	}
