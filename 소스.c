@@ -138,8 +138,8 @@ TreeNode p63;
 TreeNode p64;
 TreeNode p65;
 TreeNode p66;
-TreeNode p67;
-TreeNode p68;
+TreeNode password;
+TreeNode password2;
 TreeNode p69;
 TreeNode p610;
 TreeNode p7;//통신물자창고
@@ -480,39 +480,41 @@ TextLinkedList p52_t1 = { "간신히 제압했다." ,&p52_t2 };
 TextLinkedList p53_t2 = { "무슨 열쇠인지는 모르겠다." ,NULL };
 TextLinkedList p53_t1 = { "좀비가 입고있던 전투복에서 [뭔지 모를 열쇠]를 발견했다." ,&p53_t2 };
 
-TextLinkedList p54_t5 = { "게임오버" ,NULL };
+TextLinkedList p54_t5 = { "쿨럭,," ,NULL };
 TextLinkedList p54_t4 = { "어라..?점점 의식이 흐려진다." ,&p54_t5 };
 TextLinkedList p54_t3 = { "지금이라도 도망쳐야 할 것 같다." ,&p54_t4 };
 TextLinkedList p54_t2 = { "자세히 보니 주임원사님의 얼굴을 꼭 빼닮은 것 같다." ,&p54_t3 };
-TextLinkedList p54_t1 = { "맨손으로는 무리인 것 같다." ,&p54_t2 };
+TextLinkedList p54_t1 = { "헉,,,헉,,,역시 맨손으로는 무리였다." ,&p54_t2 };
 
 TextLinkedList p6_t1 = { "주임 원사실...[부재중]..." ,NULL };
 
 TextLinkedList p61_t5 = { "잡다한 용접 도구들이 눈에 띈다.",NULL };
 TextLinkedList p61_t4 = { "안으로 들어갈 수록 커피 원두향이 진하게 난다." ,&p61_t5 };
 TextLinkedList p61_t3 = { "좀비에게서 얻은 열쇠로 문이 열렸다." ,&p61_t4 };
-TextLinkedList p61_t2 = { "철컥 철컥 문이 잠겨있다." ,&p61_t3 };
+TextLinkedList p61_t2 = { "달그락 슈루룩 철컥!" ,&p61_t3 };
 TextLinkedList p61_t1 = { "[주임원사실]" ,&p61_t2 };
 
 TextLinkedList p62_t3 = { "열쇠가 필요하다." ,NULL };
 TextLinkedList p62_t2 = { "철컥 철컥 문이 잠겨있다." ,&p62_t3 };
 TextLinkedList p62_t1 = { "[주임원사실]" ,&p62_t2 };
 
-TextLinkedList p63_t3 = { "비밀번호 입력: [_][_][_][_]" ,NULL };
-TextLinkedList p63_t2 = { "하지만 비밀번호로 잠겨있다." ,&p63_t3 };
+
+TextLinkedList p63_t2 = { "하지만 비밀번호로 잠겨있다." ,NULL };
 TextLinkedList p63_t1 = { "금고가 보인다." ,&p63_t2 };
+
+TextLinkedList password_t3 = { "이 비밀번호가 아닌 것 같다.." ,NULL };
+TextLinkedList password_t2 = { "삐-비-익",&password_t3 };
+
+TextLinkedList password_t1 = { "비밀번호 입력: [_][_][_][_]",NULL};
 
 TextLinkedList p64_t4 = { "[권총과 탄알집]을 발견했다." ,NULL };
 TextLinkedList p64_t3 = { "중요해보이는 기밀 문서들이 잔뜩 있다." ,&p64_t4 };
 TextLinkedList p64_t2 = { "금고가 열렸다!!!" , &p64_t3 };
 TextLinkedList p64_t1 = { "띠-띠-띠로리--" ,&p64_t2 };
 
-TextLinkedList p65_t2 = { "이 비밀번호가 아닌 것 같다.." ,NULL };
-TextLinkedList p65_t1 = { "삐-비-익" ,&p65_t2 };
-
-TextLinkedList p67_t3 = { "좀비들이 몰려오는 소리가 들린다." ,NULL };
-TextLinkedList p67_t2 = { "!!!갑자기 비상벨이 울린다." ,&p67_t3 };
-TextLinkedList p67_t1 = { "삐--용--삐--용--삐--용--삐--용-- " ,&p67_t2 };
+TextLinkedList p65_t3 = { "좀비들이 몰려오는 소리가 들린다." ,NULL };
+TextLinkedList p65_t2 = { "!!!갑자기 비상벨이 울린다." ,&p65_t3 };
+TextLinkedList p65_t1 = { "삐--용--삐--용--삐--용--삐--용-- " ,&p65_t2 };
 
 TextLinkedList p68_t1 = { "빨리 도망치거나 숨어야 할 것 같다." ,NULL };
 
@@ -521,8 +523,8 @@ TextLinkedList p69_t6 = { "쿵...쾅...쿵...쾅...쿵.........." ,&p69_t7 };
 TextLinkedList p69_t5 = { "쿵쾅..쿵쾅..쿵..쿵..쿵...쾅...쾅...." ,&p69_t6 };
 TextLinkedList p69_t4 = { "쿵쾅쿵쾅쿵쾅쿵쾅쿵쾅쿵쿵쾅쾅...." ,&p69_t5 };
 TextLinkedList p69_t3 = { "숨을 참아도 심장 소리는 더 커지는 것 같다...." ,&p69_t4 };
-TextLinkedList p69_t2 = { "좀비들의 발소리가 점점 가까워진다." ,&p67_t3 };
-TextLinkedList p69_t1 = { "일단 락커에 몸을 숨겼다." ,&p67_t2 };
+TextLinkedList p69_t2 = { "좀비들의 발소리가 점점 가까워진다." ,&p69_t3 };
+TextLinkedList p69_t1 = { "일단 락커에 몸을 숨겼다." ,&p69_t2 };
 
 TextLinkedList p610_t5 = { "나는 목부터 발까지 뜯겨나갔다." ,NULL };
 TextLinkedList p610_t4 = { "으드득으드득..으드득으드득....." ,&p610_t5 };
@@ -666,7 +668,7 @@ TextLinkedList b2_t4 = { "여기에 존재하는 것은 나 자신과 좀비..."
 TextLinkedList b2_t3 = { "산 기슭을 훑고 지나오는 바람은 머나먼 곳으로 떠나는 것 같다.",&h2_t4 };
 TextLinkedList b2_t2 = { "점점 석양이 지고, 태양빛이 붉게 무르익어 간다.",&h2_t3 };
 TextLinkedList b2_t1 = { "어느정도 시간이 흐른 것 같다.",&h2_t2 };
-
+TextLinkedList gameover_t1 = { "[게임 오버]",NULL };
 //선택지의 수에 따라 링크를 저장한 구조체포인터 배열 생성
 TreeNode* ending[2] = { &r6,&r7 }; //엔딩 선택지
 TreeNode* pre[6] = { &p4,&p5,&p6,&p7,&p8,&cr };//
@@ -680,7 +682,7 @@ TreeNode happy1 = { &h1_t1,NULL,0,NULL,NULL,NULL,NULL };
 TreeNode happy2 = { &h2_t1,NULL,0,NULL,NULL,NULL,NULL };
 TreeNode bad1 = { &b1_t1,NULL,0,NULL,NULL,NULL,NULL };
 TreeNode bad2 = { &b2_t1,NULL,0,NULL,NULL,NULL,NULL };
-TreeNode gameover = { NULL,NULL,NULL,NULL };
+TreeNode gameover = { &gameover_t1,NULL,0,NULL,NULL,NULL,NULL };
 
 //옥상 루트(r)
 
@@ -704,19 +706,20 @@ TreeNode p3 = { &p3_t1,&explore,2,&p31,&p1,NULL, "[군수과]" };//군수과
 TreeNode p31 = { &p31_t1,&confirm,0,NULL,&p3,NULL, "[군수과]" };
 TreeNode p4 = { &p4_t1,&confirm,0,NULL,&p1,NULL,"[1층 중앙 현관]" };//대대장실
 TreeNode p5 = { &p5_t1,&fight,2,&p51,&p1, NULL,"[지휘통제실]" };//지휘통제실
-TreeNode p51 = { &p51_t1,&confirm,0,&p52,&p54, NULL,"[지휘통제실]" };//무기가 있을 경우
+TreeNode p51 = { &p51_t1,&confirm,0,&p52,&p52, NULL,"[지휘통제실]" };//무기가 있을 경우  #임시로 right 주소 p52로 바꿈
 TreeNode p52 = { &p52_t1,&explore,2,&p53,&p1, NULL,"[지휘통제실]" };//좀비 처치 후 탐색 -->주임원사실 열쇠 획득
 TreeNode p53 = { &p53_t1,&confirm,0,NULL,&p52, NULL,"[지휘통제실]" };
 TreeNode p54 = { &p54_t1,&confirm,0,NULL,&gameover, NULL,"[지휘통제실]" };//무기가 없을 경우
+TreeNode p55 = { &no_item1,&confirm,0,&p5,&p1,NULL };//도망갔다가 다시 와서 탐색했을 시
 TreeNode p6 = { &p6_t1,&confirm,0,&p61,&p62,NULL,"[주임원사실]" };//주임원사실
-TreeNode p61 = { &p61_t1,&explore,2,&p63,&p1,NULL,"[주임원사실]" };
-TreeNode p62 = { &p62_t1,&confirm,0,NULL,&p61,NULL,"[주임원사실]" };
-TreeNode p63 = { &p63_t1,&confirm,0,&p64,&p65,NULL,"[주임원사실]" };
-TreeNode p64 = { &p64_t1,&confirm,0,NULL,&p63,NULL,"[주임원사실]" };//금고 비밀번호가 맞을 시
-TreeNode p65 = { &p65_t1,&confirm,0,&p64,&p66,NULL,"[주임원사실]" };
-TreeNode p66 = { &p65_t1,&confirm,0,&p64,&p67,NULL,"[주임원사실]" };
-TreeNode p67 = { &p67_t1,&confirm,0,&p64,&p68,NULL,"[주임원사실]" };
-TreeNode p68 = { &p68_t1,&p68_s1,2,&p69,&p610,NULL,"[주임원사실]" };//비밀번호 3회 오류시 좀비
+TreeNode p61 = { &p61_t1,&explore,2,&p63,&p1,NULL,"[주임원사실]" };//열쇠 있을시
+TreeNode p62 = { &p62_t1,&confirm,0,&p1,&p1,NULL,"[주임원사실]" };//열쇠 없을시
+TreeNode p63 = { &p63_t1,&confirm,0,&password,&password,NULL,"[주임원사실]" };
+TreeNode password = {&password_t1 ,&confirm,0,&p64,&password2,NULL};
+TreeNode password2 = { &password_t2, &confirm,0,&password,&p65,NULL };
+TreeNode p64 = { &p64_t1,&confirm,0,NULL,&p63,NULL,"[주임원사실]" };
+TreeNode p65 = { &p65_t1,&confirm,0,&p66,&p66,NULL,"[주임원사실]" };//비밀번호 3회 오류시 좀비
+TreeNode p66 = { &p68_t1,&p68_s1,2,&p69,&p610,NULL,"[주임원사실]" };
 TreeNode p69 = { &p69_t1,&explore,2,&p63,&p1,NULL,"[주임원사실]" };
 TreeNode p610 = { &p610_t1,&confirm,0,NULL,&gameover,NULL,"[주임원사실]" };
 TreeNode p7 = { &p7_t1,&explore,2,&p71,&p1,NULL,"[통신물자창고]" };//통신물자창고
@@ -776,7 +779,7 @@ TreeNode f31 = { &f31_t1,&confirm,0,&e1,&e1,NULL,"[격리 생활관 앞]" };//�
 TreeNode f32 = { &f32_t1,&confirm,0,&f1,&f1,NULL,"[격리 생활관 앞]" };//열쇠가 없을 시 격리생활관 앞으로 이동하는 단말노드
 
 //헤더 루트
-TreeNode* root = &f1;
+TreeNode* root = &p1;
 
 // 현재 pos.X, posY로 콘솔 위치지정
 void gotoxy() {
@@ -962,7 +965,6 @@ int KeyPrint() {
 	}
 }
 void print_text(TreeNode* current_node) {	//내용 텍스트 출력함수
-	TextLinkedList* temp = current_node->thead;
 	pos.X = 4;
 	pos.Y = 5;
 	for (TextLinkedList* current_text = current_node->thead; current_text != NULL; current_text = current_text->link) {
@@ -1100,7 +1102,25 @@ void init(ListNode* head) {
 	head->prelink = head;
 	head->data = "Empty";
 }
+int checking_password(TreeNode* current) {
 
+	char* key = "0624";
+	char ch[4];
+	for (int i = 0; i < 3; i++) {
+		print_console(current);
+		for (int j = 0; j < 4; j++) {
+			ch[j] = getchar();
+		}
+		if (!strcmp(ch, key)) {
+			return 1;
+		}
+		current = current->right;
+		print_console(current);
+		current = current->left;
+	}
+	current = current->right;
+	return 0;
+}
 int is_condition_node(TreeNode* current_node) {		//노드가 조건 노드인지 확인하는 함수 (예)열쇠가 있는 또는 없는 경우 판단 노드
 	if (current_node->maxindex == 0 && current_node->left != NULL) {//선택지가 없고 왼쪽 링크는 NULL이 아닌경우 
 		return 1;
@@ -1137,7 +1157,7 @@ void is_east_return(TreeNode* current) {
 		temp->dptr = east2;
 	}
 }
-int checking_condition(TreeNode* current_node,ListNode* inventory) { //조건 검사 함수 오늘은 일단 여기까지
+int checking_condition(TreeNode* current_node,ListNode* inventory) { 
 
 	if (current_node == &f3) {//격리생활관 칸막이 열쇠 조건
 		is_item = searching(inventory, itemList[0]);
@@ -1160,11 +1180,6 @@ int checking_condition(TreeNode* current_node,ListNode* inventory) { //조건 �
 		}
 		
 	}
-	else if (current_node == &p51) {
-		//아직 미구현
-
-	}
-
 	else if (current_node == &p6) {
 		is_item = searching(inventory, itemList[11]);
 		if (is_item) {
@@ -1174,6 +1189,9 @@ int checking_condition(TreeNode* current_node,ListNode* inventory) { //조건 �
 		else {
 			return 0; // 조건 거짓 반환
 		}
+	}
+	else if (current_node == &password) {
+		return checking_password(current_node);
 	}
 	else if (current_node == &p8) {
 		is_item = searching(inventory, itemList[10]);
@@ -1293,13 +1311,13 @@ ListNode* checking_inventory(TreeNode* current_node, ListNode* inventory) {
 			current_node->thead = &no_item1;
 		}
 	}
-	else if (current_node == &p63) { //권총과 탄알집
-		is_item = searching(inventory, itemList[12]);
-		if (!is_item && current_node->thead != &no_item1) {
-			inventory = insert_last(inventory, itemList[12]);
+	//else if (current_node == &p63) { //권총과 탄알집
+	//	is_item = searching(inventory, itemList[12]);
+	//	if (!is_item && current_node->thead != &no_item1) {
+	//		inventory = insert_last(inventory, itemList[12]);
 
-		}
-	}
+	//	}
+	//}
 	else if (current_node == &p71) {//노트북과 연결 포트
 		is_item = searching(inventory, itemList[14]);
 		if (!is_item && current_node->thead != &no_item1) {
@@ -1329,8 +1347,11 @@ void checking_fight(TreeNode* current_node) {
 		current_node->right = &w1;
 		current_node->left = &w63;
 	}
-	else if (current_node == &p51) {
+	else if (current_node == &p5) {
+		current_node->shead = &explore;
 		current_node->thead->link = &no_zombie1;
+		current_node->right = &p1;
+		current_node->left = &p55;
 	}
 }
 TreeNode* next_node(int y, TreeNode* current_node) {
@@ -1405,7 +1426,7 @@ int main() {
 
 		is_east_return(current);
 
-		if (!is_leaf && !is_condi && is_kill) {
+		if (!is_leaf /*&& !is_condi */&& is_kill) {
 			checking_fight(pre);
 			is_kill = 0;
 		}
@@ -1436,7 +1457,8 @@ int main() {
 		}
 
 
-		//옥상까지 수정완료
+		//주임원사실 금고 비밀번호 함수 구현하려다가 실패
+
 		keyControlData.isSubmit = FALSE;
 	}
 	return 0;
