@@ -19,7 +19,7 @@
 //함수 선언부
 
 char* itemList[16] = { "[칸막이 열쇠]","[부러진 대걸레]","[차갑게 식은 냉동 만두]","[옥상 열쇠]","[손전등]",
-"[야채 건빵]" ,"[몽키 스패너]","[붕대]","[터보 라이터]","[손 소독제]"," [총기함 키]","[주임원사실 열쇠]","[권총과 탄알집]","[K2 소총]","[노트북과 연결 포트]","[어딘가 중요해 보이는 열쇠]"};
+"[야채 건빵]" ,"[몽키 스패너]","[붕대]","[터보 라이터]","[손 소독제]","[총기함 키]","[주임원사실 열쇠]","[권총과 탄알집]","[K2 소총]","[노트북과 연결 포트]","[어딘가 중요해 보이는 열쇠]"};
 int is_condi = 0; // 조건 노드인가
 int is_leaf = 0; // 단말 노드인가
 int is_true = 0; //조건이 참인가
@@ -252,8 +252,8 @@ SelectLinkedList r2_s2 = { "[2]2층 중앙복도로 내려간다",NULL };
 SelectLinkedList r2_s1 = { "[1]통신망을 개통한다",&r2_s2 };
 
 
-SelectLinkedList r31_s4 = { "[4]제가 통신대대 병장 박전역인데, 지금 옥상에 있거든요? 빨리 구하러 와주세요.빨리요",NULL };
-SelectLinkedList r31_s3 = { "[3]당직 사령한테 연결해.빨리.",&r31_s4 };
+SelectLinkedList r31_s4 = { "[4]아아, 들리세요?? 저기요! 여보세요? 야 이 개새$끼야 받았으면 대답을 해!!",NULL };
+SelectLinkedList r31_s3 = { "[3]어, 나 육군 참모총장인데 거기 당직 사령 좀 바꿔봐.",&r31_s4 };
 SelectLinkedList r31_s2 = { "[2]여보세요??살려주세요!! 여기 사람이 있다구요!!!",&r31_s3 };
 SelectLinkedList r31_s1 = { "[1]통신보안, 여기는 11사단 통신대대, 생존자 1명 대기중, 구조 바람.",&r31_s2 };
 
@@ -293,8 +293,10 @@ TextLinkedList f3_t1 = { "칸막이 문에 자물쇠가 걸려있는 것 같다.
 
 TextLinkedList f21_t1 = { "[칸막이 열쇠]를 발견했다.",NULL };
 
-TextLinkedList f31_t2 = { "밖으로 나가자.",NULL };
-TextLinkedList f31_t1 = { "칸막이가 열렸다.",&f31_t2 };
+TextLinkedList f31_t4 = { "밖으로 나가자.",NULL };
+TextLinkedList f31_t3 = { "오래된 나무끼리 마찰되는 소리와 함께 문이 힘없이 열렸다.",&f31_t4 };
+TextLinkedList f31_t2 = { "[칸막이 열쇠]를 사용했다.",&f31_t3 };
+TextLinkedList f31_t1 = { "철커덕!",&f31_t2 };
 
 TextLinkedList f32_t2 = { "열쇠는 주변에서 찾을 수 있을 것 같다.",NULL };
 TextLinkedList f32_t1 = { "[칸막이 열쇠]가 필요하다.",&f32_t2 };
@@ -540,7 +542,8 @@ TextLinkedList p69_t3 = { "숨을 참아도 심장 소리는 더 커지는 것 �
 TextLinkedList p69_t2 = { "좀비들의 발소리가 점점 가까워진다." ,&p69_t3 };
 TextLinkedList p69_t1 = { "일단 락커에 몸을 숨겼다." ,&p69_t2 };
 
-TextLinkedList p610_t5 = { "나는 목부터 발까지 뜯겨나갔다." ,NULL };
+TextLinkedList p610_t6 = { "세상이 불그노르스름해졌다. 그를ㄹㄹㄹㄹ" ,NULL };
+TextLinkedList p610_t5 = { "혈관을 타고 뜨거운 수증기가 발 끝부터 머리 끝까지 차오르는 느낌이 든다." ,&p610_t6 };
 TextLinkedList p610_t4 = { "으드득으드득..으드득으드득....." ,&p610_t5 };
 TextLinkedList p610_t3 = { "좀비들이 나의 앞을 가로막고 있다." ,&p610_t4 };
 TextLinkedList p610_t2 = { "하지만 이미 늦었다.." ,&p610_t3 };
@@ -563,7 +566,7 @@ TextLinkedList p811_t1 = { "총기함은 굳게 잠겨있다." ,NULL };
 
 TextLinkedList p81_t3 = { "[K2 소총]을 얻었다." ,NULL };
 TextLinkedList p81_t2 = { "훈련 때문에 탄약은 없는 것 같다." ,&p81_t3 };
-TextLinkedList p81_t1 = { "[총기함 키]로 문을 열었다." ,&p81_t2 };
+TextLinkedList p81_t1 = { "[총기함키]로 문을 열었다." ,&p81_t2 };
 
 TextLinkedList p82_t3 = { "인사과에 가면 있을 것이다." ,NULL };
 TextLinkedList p82_t2 = { "[총기함키]가 필요하다." ,&p82_t3 };
@@ -572,7 +575,7 @@ TextLinkedList p82_t1 = { "총기함이 잠겨있다." ,&p82_t2 };
 //텍스트 옥상----------------------------------------------------------------------------------------------------------------------
 TextLinkedList r1_t4 = { "[옥상 열쇠]가 필요할 것 같다.",NULL };
 TextLinkedList r1_t3 = { "철컥, 철컥,",&r1_t4 };
-TextLinkedList r1_t2 = { "[ 관계자 외 출입금지]",&r1_t3 };
+TextLinkedList r1_t2 = { "[ 관계자 외 출입금지 ]",&r1_t3 };
 TextLinkedList r1_t1 = { "옥상 문이 닫혀있다.",&r1_t2 };
 
 TextLinkedList r2_t5 = { "우우웅...우우웅...(반복적인 기계음)",NULL };
@@ -682,7 +685,9 @@ TextLinkedList b2_t4 = { "여기에 존재하는 것은 나 자신과 좀비..."
 TextLinkedList b2_t3 = { "산 기슭을 훑고 지나오는 바람은 머나먼 곳으로 떠나는 것 같다.",&h2_t4 };
 TextLinkedList b2_t2 = { "점점 석양이 지고, 태양빛이 붉게 무르익어 간다.",&h2_t3 };
 TextLinkedList b2_t1 = { "어느정도 시간이 흐른 것 같다.",&h2_t2 };
+
 TextLinkedList gameover_t1 = { "[게임 오버]",NULL };
+TextLinkedList gameclear_t1 = { "[게임 클리어]",NULL };
 //선택지의 수에 따라 링크를 저장한 구조체포인터 배열 생성
 TreeNode* ending[2] = { &r6,&r7 }; //엔딩 선택지
 TreeNode* pre[6] = { &p4,&p5,&p6,&p7,&p8,&cr };//
@@ -697,7 +702,7 @@ TreeNode happy2 = { &h2_t1,NULL,0,NULL,NULL,NULL,NULL };
 TreeNode bad1 = { &b1_t1,NULL,0,NULL,NULL,NULL,NULL };
 TreeNode bad2 = { &b2_t1,NULL,0,NULL,NULL,NULL,NULL };
 TreeNode gameover = { &gameover_t1,NULL,0,NULL,NULL,NULL,NULL };
-
+TreeNode gameclear = { &gameclear_t1,NULL,0,NULL,NULL,NULL,NULL };
 //옥상 루트(r)
 
 TreeNode r1 = { &r1_t1,&confirm,0,&r2,&cr,NULL,"[옥상]" };//옥상열쇠가 있는가
@@ -705,10 +710,10 @@ TreeNode r2 = { &r2_t1,&r2_s1,2,&r3,&cr,NULL,"[옥상]" };//1망개통 한다 2�
 TreeNode r3 = { &r3_t1,&confirm,0,&r31,&r32,NULL,"[옥상]" }; //연결포트와 노트북이 있는가
 TreeNode r31 = { &r31_t1,&r31_s1,4,&r4,&r5,ending,"[옥상]" };//연결포트와 노트북이 있는 경우
 TreeNode r32 = { &r32_t1,&confirm,0,&r2,NULL,NULL,"[옥상]" };//연결포트와 노트북이 없는 경우
-TreeNode r4 = { &r4_t1,&confirm,0,&bad1,NULL,NULL,"[옥상]" };
-TreeNode r5 = { &r4_t1,&confirm,0,&happy1,NULL ,NULL,"[옥상]" };
-TreeNode r6 = { &r4_t1,&confirm,0,&happy2,NULL,NULL,"[옥상]" };
-TreeNode r7 = { &r4_t1,&confirm,0,&bad2,NULL,NULL,"[옥상]" };
+TreeNode r4 = { &r4_t1,&confirm,0,&bad1,&bad1,NULL,"[옥상]" };
+TreeNode r5 = { &r4_t1,&confirm,0,&happy1,&happy1 ,NULL,"[옥상]" };
+TreeNode r6 = { &r4_t1,&confirm,0,&bad2,&bad2,NULL,"[옥상]" };
+TreeNode r7 = { &r4_t1,&confirm,0,&happy2,&happy2,NULL,"[옥상]" };
 
 //1층 루트(p)
 
@@ -725,29 +730,29 @@ TreeNode p4 = { &p4_t1,&confirm,0,NULL,&p1,NULL,"[1층 중앙 현관]" };//대�
 
 TreeNode p5 = { &p5_t1,&fight,2,&p51,&p1, NULL,"[지휘통제실]" };//지휘통제실
 TreeNode p51 = { &p51_t1,&confirm,0,&p52,&p52, NULL,"[지휘통제실]" };//무기가 있을 경우  #임시로 right 주소 p52로 바꿈
-TreeNode p52 = { &p52_t1,&explore,2,&p53,&p1, NULL,"[지휘통제실]" };//좀비 처치 후 탐색 -->주임원사실 열쇠 획득
-TreeNode p53 = { &p53_t1,&confirm,0,NULL,&p52, NULL,"[지휘통제실]" };
+TreeNode p52 = { &p52_t1,&explore,2,&p53,&p1, NULL,"[지휘통제실]" };//좀비 처치 후 탐색
+TreeNode p53 = { &p53_t1,&confirm,0,NULL,&p52, NULL,"[지휘통제실]" }; //-- > 주임원사실 열쇠 획득
 TreeNode p54 = { &p54_t1,&confirm,0,NULL,&gameover, NULL,"[지휘통제실]" };//무기가 없을 경우
-TreeNode p55 = { &no_item1,&confirm,0,&p5,&p1,NULL };//도망갔다가 다시 와서 탐색했을 시
+TreeNode p55 = { &p53_t1,&confirm,0,NULL,&p1,NULL };//도망갔다가 다시 와서 탐색했을 시
 
 TreeNode p6 = { &p6_t1,&confirm,0,&p61,&p62,NULL,"[주임원사실]" };//주임원사실
 TreeNode p61 = { &p61_t1,&p61_s1,2,&p63,&p1,NULL,"[주임원사실]" };//열쇠 있을시
-TreeNode p62 = { &p62_t1,&confirm,0,&p1,&p1,NULL,"[주임원사실]" };//열쇠 없을시
+TreeNode p62 = { &p62_t1,&confirm,0,&p1,NULL,NULL,"[주임원사실]" };//열쇠 없을시
 TreeNode p63 = { &p63_t1,&confirm,0,&p64,&p65,NULL,"[주임원사실]" };
-TreeNode p64 = { &p64_t1,&confirm,0,&p66,&p66,NULL,"[주임원사실]" };//금고 열쇠 있을시 권총과 탄알집
-TreeNode p65 = { &p65_t1,&confirm,0,&p61,&p61,NULL,"[주임원사실]" };//금고 열쇠 없을시 뒤로
+TreeNode p64 = { &p64_t1,&confirm,0,&p66,NULL,NULL,"[주임원사실]" };//금고 열쇠 있을시 권총과 탄알집
+TreeNode p65 = { &p65_t1,&confirm,0,&p61,NULL,NULL,"[주임원사실]" };//금고 열쇠 없을시 뒤로
 TreeNode p66 = { &p66_t1,&p66_s1,2,&p69,&p610,NULL,"[주임원사실]" };
-TreeNode p69 = { &p69_t1,&confirm,0,&p1,&p6,NULL,"[주임원사실]" };//숨었을 때
+TreeNode p69 = { &p69_t1,&confirm,0,NULL,&p1,NULL,"[주임원사실]" };//숨었을 때
 TreeNode p610 = { &p610_t1,&confirm,0,NULL,&gameover,NULL,"[주임원사실]" };//도망쳤을 때 게임 오버
-TreeNode p6_ = { &p6__t1,&confirm,0,&p1,&p1,NULL,"[1층 중앙 현관]" };
+TreeNode p6_ = { &p6__t1,&confirm,0,NULL,&p1,NULL,"[1층 중앙 현관]" };
 
 TreeNode p7 = { &p7_t1,&explore,2,&p71,&p1,NULL,"[통신물자창고]" };//통신물자창고
 TreeNode p71 = { &p71_t1,&confirm,0,NULL,&p7,NULL,"[통신물자창고]" };
 
 TreeNode p8 = { &p8_t1,&explore,2,&p811,&p1,NULL, "[총기함실]" };//총기함실
 TreeNode p811 = { &p811_t1,&confirm,0,&p81,&p82,NULL, "[총기함실]" };
-TreeNode p81 = { &p81_t1,&confirm,0,&p8,&p8,NULL, "[총기함실]" };//열쇠가 있을 시
-TreeNode p82 = { &p82_t1,&confirm,0,&p8,&p8,NULL, "[총기함실]" };//열쇠가 없을 시
+TreeNode p81 = { &p81_t1,&confirm,0,&p8,NULL,NULL, "[총기함실]" };//열쇠가 있을 시
+TreeNode p82 = { &p82_t1,&confirm,0,&p8,NULL,NULL, "[총기함실]" };//열쇠가 없을 시
 
 //2층 서편 루트(w)
 
@@ -799,7 +804,7 @@ TreeNode f31 = { &f31_t1,&confirm,0,&e1,&e1,NULL,"[격리 생활관 앞]" };//�
 TreeNode f32 = { &f32_t1,&confirm,0,&f1,&f1,NULL,"[격리 생활관 앞]" };//열쇠가 없을 시 격리생활관 앞으로 이동하는 단말노드
 
 //헤더 루트
-TreeNode* root = &p1;
+TreeNode* root = &f1;
 
 // 현재 pos.X, posY로 콘솔 위치지정
 void gotoxy() {
@@ -1124,7 +1129,7 @@ void init(ListNode* head) {
 }
 
 int is_condition_node(TreeNode* current_node) {		//노드가 조건 노드인지 확인하는 함수 (예)열쇠가 있는 또는 없는 경우 판단 노드
-	if (current_node->maxindex == 0 && current_node->left != NULL) {//선택지가 없고 왼쪽 링크는 NULL이 아닌경우 
+	if (current_node->maxindex == 0 && (current_node->left != NULL && current_node->right != NULL)) {//선택지가 없고 왼쪽 링크는 NULL이 아닌경우 
 		return 1;
 	}
 	else {
@@ -1132,7 +1137,7 @@ int is_condition_node(TreeNode* current_node) {		//노드가 조건 노드인지
 	}
 }
 int is_leaf_node(TreeNode* current_node) {//단말 노드 검사 함수
-	if (current_node->maxindex == 0 && current_node->left == NULL) {//선택지 없고 왼쪽 링크 비어있으면 단말
+	if (current_node->maxindex == 0 && (current_node->left == NULL || current_node->right ==NULL)) {//선택지 없고 왼쪽 링크 비어있으면 단말
 		return 1;
 	}
 	else {
@@ -1184,17 +1189,19 @@ int checking_condition(TreeNode* current_node,ListNode* inventory) {
 	}
 	else if (current_node == &p6) {
 		is_item = searching(inventory, itemList[11]);
-		if (is_item) {
-			inventory = deleted(inventory, getdeleteNode(inventory, itemList[11])); // 아이템 사용 후 삭제
+		if (is_item) {//주임 원사실 열쇠 삭제x
+
 			return 1; // 조건 참 반환
 		}
 		else {
 			return 0; // 조건 거짓 반환
 		}
 	}
+
 	else if (current_node == &p63) {
 		is_item = searching(inventory, itemList[15]);
-		if (is_item) { //주임 원사실 열쇠 삭제x
+		if (is_item) { //금고 열쇠
+			inventory = deleted(inventory, getdeleteNode(inventory, itemList[15]));
 			return 1; // 조건 참 반환
 		}
 		else {
@@ -1205,9 +1212,10 @@ int checking_condition(TreeNode* current_node,ListNode* inventory) {
 		p6 = p6_;
 		return 1;
 	}
-	else if (current_node == &p8) {
+	else if (current_node == &p811) {
 		is_item = searching(inventory, itemList[10]);
 		if (is_item) { //총기함키 삭제 x
+
 			return 1; // 조건 참 반환
 		}
 		else {
@@ -1327,12 +1335,21 @@ ListNode* checking_inventory(TreeNode* current_node, ListNode* inventory) {
 		if (!is_item && current_node->thead != &no_item1) {
 			inventory = insert_last(inventory, itemList[11]);
 			current_node->thead = &no_item1;
+			p55.thead = &no_item1;
 		}
 	}
-	else if (current_node == &p63) { //권총과 탄알집
+	else if (current_node == &p55) { //주임원사실 열쇠
+		is_item = searching(inventory, itemList[11]);
+		if (!is_item && current_node->thead != &no_item1) {
+			inventory = insert_last(inventory, itemList[11]);
+			current_node->thead = &no_item1;
+		}
+	}
+	else if (current_node == &p64) { //권총과 탄알집
 		is_item = searching(inventory, itemList[12]);
 		if (!is_item && current_node->thead != &no_item1) {
 			inventory = insert_last(inventory, itemList[12]);
+			current_node->thead = &no_item1;
 		}
 	}
 	else if (current_node == &p71) {//노트북과 연결 포트
@@ -1433,14 +1450,17 @@ int main() {
 			KeyPrint();
 			Sleep(1);
 		}
-		pre = current;
 		is_exp = is_explore(current);
 		is_kill = is_fight(current);
 
+		pre = current;
+
+		inventory = checking_inventory(current, inventory);
+		
 		current = next_node(pos.Y, current);
+
 		is_leaf = is_leaf_node(current);
 		is_condi = is_condition_node(current);
-
 		is_east_return(current);
 
 		if (!is_leaf /*&& !is_condi */&& is_kill) {
@@ -1463,6 +1483,7 @@ int main() {
 				print_console(current);
 				getchar();
 				current = current->left;
+
 				is_true = 0;
 			}
 			else {
