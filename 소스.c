@@ -20,6 +20,7 @@
 
 char* itemList[16] = { "[칸막이 열쇠]","[부러진 대걸레]","[차갑게 식은 냉동 만두]","[옥상 열쇠]","[손전등]",
 "[야채 건빵]" ,"[몽키 스패너]","[붕대]","[터보 라이터]","[손 소독제]","[총기함 키]","[주임원사실 열쇠]","[권총과 탄알집]","[K2 소총]","[노트북과 연결 포트]","[어딘가 중요해 보이는 열쇠]"};
+
 int is_condi = 0; // 조건 노드인가
 int is_leaf = 0; // 단말 노드인가
 int is_true = 0; //조건이 참인가
@@ -32,16 +33,6 @@ int is_ending = 0;//게임 엔딩인가
 
 typedef const char element;
 
-typedef struct ListNode {
-	element* data;
-	struct ListNode* prelink;
-	struct ListNode* link;
-} ListNode;
-
-typedef struct PlayerStat {
-	int hp;
-
-}PlayerStat;
 
 typedef struct {
 	int limitMinY; // 홈메뉴 최상단 y값 이 값을 통해 사용자가 맨 위에서 더 이동하려고 하는 상황 해결
@@ -49,6 +40,13 @@ typedef struct {
 	bool isSubmit; // 스페이스바가 눌렸는가
 	int key; // 입력받은 키 값
 }keyControl;
+
+//인벤토리 연결 리스트
+typedef struct ListNode {
+	element* data;
+	struct ListNode* prelink;
+	struct ListNode* link;
+} ListNode;
 
 // 텍스트 연결리스트
 typedef struct TextLinkedList {
@@ -71,6 +69,13 @@ typedef struct TreeNode {
 	struct TreeNode** dptr;		//선택지가 많아서 구조체포인터 배열 주소를 받는 이중포인터
 	const char* current_pos;
 }TreeNode;
+
+typedef struct {
+	int hp;
+	int energy;
+}Player;
+
+Player p = { 5,10 };
 
 // 변수 선언
 // 전역변수
@@ -97,9 +102,7 @@ ListNode* deleted(ListNode* head, ListNode* removed);
 int searching(ListNode* head, element* data);
 ListNode* getdeleteNode(ListNode* head, element* data);
 void init(ListNode* head);
-
 void map_print();
-PlayerStat Player;
 //=============================================================노드 선언부=============================================================
 TreeNode intro_;
 TreeNode intro1;
@@ -215,6 +218,7 @@ SelectLinkedList intro_s1 = { "게임 시작",&intro_s2 };
 
 SelectLinkedList f1_s2 = { "[2]칸막이 밖으로 나간다",NULL };
 SelectLinkedList f1_s1 = { "[1]간부연구실로 간다",&f1_s2 };
+
 //선택지 동편
 SelectLinkedList e1_s4 = { "[4]중앙복도로 간다",NULL };
 SelectLinkedList e1_s3 = { "[3]행정반으로 간다",&e1_s4 };
@@ -640,9 +644,8 @@ TextLinkedList r32_t3 = { "우우웅...우우웅...(반복적인 기계음)",NUL
 TextLinkedList r32_t2 = { "통신망 개통을 위한 장비는 1층 [통신물자 창고]에 있을 것이다.",&r32_t3 };
 TextLinkedList r32_t1 = { "역시 통신망 연결이 끊겨있다.",&r32_t2 };
 
-TextLinkedList r3_t3 = { "혹시 연결되어 있을 수도..?",NULL };
-TextLinkedList r3_t2 = { "통신망을 연결하려면 노트북과 연결 포트가 필요하다.",&r3_t3 };
-TextLinkedList r3_t1 = { "장비들은 정상적으로 작동하는 것 같다. ",&r3_t2 };
+TextLinkedList r3_t2 = { "혹시 연결되어 있을 수도..?",NULL };
+TextLinkedList r3_t1 = { "통신망을 연결하려면 노트북과 연결 포트가 필요하다.",&r3_t2 };
 
 TextLinkedList r4_t4 = { " 더 이상 신호가 잡히지 않는다.",NULL };
 TextLinkedList r4_t3 = { "통신 장비 노드가 노후되어 연결이 불안정한 것 같다.",&r4_t4 };
@@ -664,7 +667,7 @@ TextLinkedList h1_t3 = { "산 기슭을 훑고 지나오는 바람은 머나먼 
 TextLinkedList h1_t2 = { "점점 석양이 지고, 태양빛이 붉게 무르익어 간다.",&h1_t3 };
 TextLinkedList h1_t1 = { "어느정도 시간이 흐른 것 같다.",&h1_t2 };
 
-TextLinkedList h2_t24 = { "엄마!!나 또 군대 꿈 꿨어!",NULL };
+TextLinkedList h2_t24 = { "또 군대 꿈을 꾸다니!",NULL };
 TextLinkedList h2_t23 = { "잠에서 일어나니 등이 축축하게 젖어있다.",&h2_t24 };
 TextLinkedList h2_t22 = { "코로나에 걸려서 온 몸에 열이 났던 것 같다.",&h2_t23 };
 TextLinkedList h2_t21 = { "마치 내연 기관이 주체할 수 없을 속도로 펌프질하는 것처럼 과열 상태다.",&h2_t22 };
@@ -1146,17 +1149,6 @@ int KeyPrint() {
 		return keyControlData.key;
 	}
 }
-void print_text(TreeNode* current_node) {	//내용 텍스트 출력함수
-	pos.X = 4;
-	pos.Y = 5;
-	for (TextLinkedList* current_text = current_node->thead; current_text != NULL; current_text = current_text->link) {
-		gotoxy();
-		printf("%s", current_text->text);
-		getchar();
-		pos.Y++;
-	}
-	return;
-}
 //인벤토리 연결리스트 함수
 ListNode* insert_last(ListNode* head, element* data)
 {
@@ -1176,44 +1168,58 @@ ListNode* insert_last(ListNode* head, element* data)
 	}
 	return head;
 }
-ListNode* insert_first(ListNode* head, element* data)
-{
-	ListNode* node = (ListNode*)malloc(sizeof(ListNode));
-	node->data = data;
-	if (head->link == head || head->prelink == head) {
-		node->link = head;
-		node->prelink = head;
-		head->link = node;
-		head->prelink = node;
-
+void use_item(ListNode* current,ListNode* inventory) {
+	if (current->data == itemList[2]) {
+		pos.Y = SELECTSTARTPOS;
+		gotoxy();
+		printf("%s를 먹고 기력이 증가했다.", current->data);
+		pos.Y++;
+		p.energy++;
+		inventory = deleted(inventory, getdeleteNode(inventory, current->data));
+	}
+	else if (current->data == itemList[5]) {
+		pos.Y = SELECTSTARTPOS;
+		gotoxy();
+		printf("%s를 먹고 기력이 증가했다.", current->data);
+		pos.Y++;
+		p.energy++;
+		inventory = deleted(inventory, getdeleteNode(inventory, current->data));
+	}
+	else if (current->data == itemList[7]) {
+		pos.Y = SELECTSTARTPOS;
+		gotoxy();
+		if (p.hp < 5) {
+			printf("%s를 사용했다.", current->data);
+			pos.Y++;
+			gotoxy();
+			printf("체력이 1만큼 회복되었다.");
+			p.hp++;
+			pos.Y++;
+			inventory = deleted(inventory, getdeleteNode(inventory, current->data));
+		}
+		else {
+			printf("나중에 부상을 당했을 때 사용하는 게 좋을 것 같다.");
+			pos.Y++;
+		}
 	}
 	else {
-		node->prelink = head;
-		node->link = head->link;
-		node->link->prelink = node;
-		head->link = node;
+		pos.Y = SELECTSTARTPOS;
+		gotoxy();
+		printf("지금 %s를 사용할 수 없다.", current->data);
+		pos.Y++;
 	}
-	return head;
-}
-ListNode* insert(ListNode* head, ListNode* pre, element* data) {
-	ListNode* node = (ListNode*)malloc(sizeof(ListNode));
-	node->data = data;
-	if (head->link == head || head->prelink == head || head == pre) {
-		head = insert_first(head, data);
-		return head;
-	}
-	else {
-		node->prelink = pre;
-		node->link = pre->link;
-		pre->link->prelink = node;
-		pre->link = node;
-	}
-	return head;
+	gotoxy();
+	printf("[확인]");
 }
 void print_list(ListNode* head)
 {
+	ListNode* current;
 	ListNode* p;
-	int num = 1;
+	int key;
+	pos.X = 16;
+	pos.Y = 2;
+	gotoxy();
+	printf("***도움말: 아이템 사용: [enter]       인벤토리 닫기: [Q] + [enter]**");
 	pos.X = 10;
 	pos.Y = 5;
 	gotoxy();
@@ -1222,28 +1228,90 @@ void print_list(ListNode* head)
 
 		printf("=================INVENTORY===================");
 		pos.Y++;
+		pos.Y++;
 
 		gotoxy();
 		printf("비어있음");
+		pos.Y++;
 		pos.Y++;
 
 		gotoxy();
 		printf("=============================================");
 		return;
 	}
+
+
+	current = head->link;
 	p = head->link;
 	printf("=================INVENTORY===================");
 	pos.Y++;
+	pos.Y++;
 	do {
 		gotoxy();
-		printf("%d.%s", num, p->data);
+		if (current == p) {
+			printf(">>%s",  p->data);
+		}
+		else {
+			printf("  %s", p->data);
+		}
 		pos.Y++;
-		num++;
 		p = p->link;
 	} while (p != head);
+	pos.Y++;
 	gotoxy();
 	printf("=============================================");
+	do {
+
+		pos.Y = 6;
+		 key = _getch(); // 키 입력받기
+		if (key == 224) {
+			key = _getch();
+			switch (key) {
+				case 72:
+					current = current->prelink;
+					if (current == head) {
+					current = current->prelink;
+					}
+					break;
+				case 80:
+					current = current->link;
+					if (current == head) {
+					current = current->link;
+					}
+					break;
+				}			
+			}
+
+		do {
+			gotoxy();
+			if (current == p) {
+				printf(">>%s", p->data);
+				}
+			else {
+				printf("  %s", p->data);
+				}
+
+			pos.Y++;
+			p = p->link;
+
+		} while (p != head);
+
+	 //key = _getch();
+	if (key == ' ' || key == 13) {
+		use_item(current,head);
+		return;
+	}
+	if (key == 113 || key == 81) {
+		pos.Y = SELECTSTARTPOS;
+		gotoxy();
+		printf("[닫기]");
+		return;
+	}
+} while (1);
 }
+
+
+
 ListNode* deleted(ListNode* head, ListNode* removed) {
 	if (head == removed) return;
 	else {
@@ -1282,10 +1350,10 @@ ListNode* getdeleteNode(ListNode* head, element* data) {
 void init(ListNode* head) {
 	head->link = head;
 	head->prelink = head;
-	head->data = "Empty";
+	head->data = "";
 }
 
-int is_condition_node(TreeNode* current_node) {		//노드가 조건 노드인지 확인하는 함수 (예)열쇠가 있는 또는 없는 경우 판단 노드
+int is_condition_node(TreeNode* current_node) { //조건 노드 검사 함수
 	if (current_node->maxindex == 0 && (current_node->left != NULL && current_node->right != NULL)) {//선택지가 없고 왼쪽 링크는 NULL이 아닌경우 
 		return 1;
 	}
@@ -1301,30 +1369,30 @@ int is_leaf_node(TreeNode* current_node) {//단말 노드 검사 함수
 		return 0;
 	}
 }
-int is_fight(TreeNode* pre) {
+int is_fight(TreeNode* pre) {//전투 노드 검사 함수
 	if (pre->shead == &fight) {
 		return 1;
 	}
 	return 0;
 }
-int is_explore(TreeNode* pre) {
+int is_explore(TreeNode* pre) {//탐색 노드 검사 함수
 	if (pre->shead == &explore) {
 		return 1;
 	}
 	else
 		return 0;
 }
-void is_east_return(TreeNode* current) {
+void is_east_return(TreeNode* current) {//동편 돌아가기 검사 함수
 	if (current == &er) {
 		TreeNode* temp = &e1;
 		temp->thead = current->thead;
 		temp->dptr = east2;
 	}
 }
-int is_gameover(TreeNode* current) {
-	return current->right== &gameover;
+int is_gameover(TreeNode* current) {//게임 오버 검사 함수
+	return p.hp <0 || current->right== &gameover;
 }
-int is_game_ending(TreeNode* current) {
+int is_game_ending(TreeNode* current) {//게임 엔딩 검사 함수
 	if (current->left == &happy1 || current->left == &happy2 || current->left == &bad1 || current->left == &bad2)
 		return 1;
 	else return 0;
@@ -1352,7 +1420,7 @@ int checking_condition(TreeNode* current_node,ListNode* inventory) {
 		}
 		
 	}
-	else if (current_node == &p51) {
+	else if (current_node == &p51) {//무기가 있으면 참, 없으면 거짓
 		if (searching(inventory, itemList[1]) || searching(inventory, itemList[6]) || searching(inventory, itemList[12]) || searching(inventory, itemList[13])) {
 			return 1;
 		}
@@ -1555,11 +1623,20 @@ void checking_fight(TreeNode* current_node) {
 		current_node->right = &w1;
 		current_node->left = &w63;
 	}
+	
 	else if (current_node == &p5) {
 		current_node->shead = &explore;
 		current_node->thead->link = &no_zombie1;
 		current_node->right = &p1;
 		current_node->left = &p55;
+	}
+}
+void checking_fight2(TreeNode* current_node) {
+	if (current_node == &w62) {
+		p.hp -= 2;
+	}
+	else if (current_node == &p52) {
+		p.hp -= 3;
 	}
 }
 TreeNode* next_node(int y, TreeNode* current_node) {
@@ -1672,6 +1749,7 @@ int main() {
 	TreeNode* it_ = it;
 	ListNode* inventory = (ListNode*)malloc(sizeof(ListNode));
 
+
 	init(inventory);
 	system("mode con cols=100 lines=35"); // mode con:콘솔모드 cols:가로 lines:세로
 
@@ -1701,11 +1779,11 @@ int main() {
 			outtro(current);
 			break;
 		}
-
+		is_over = is_gameover(current);
 		is_leaf = is_leaf_node(current);
 		is_condi = is_condition_node(current);
 		is_east_return(current);
-
+		checking_fight2(current);
 
 		if (!is_leaf /*&& !is_condi */&& is_kill) {
 			checking_fight(pre);
@@ -1748,7 +1826,6 @@ int main() {
 				}
 			}
 		}
-		//주임원사실 금고 열쇠 형식으로 바꾸고 좀비 사태 후에 다시 갔을 때 못들어가게 바꿈
 
 		keyControlData.isSubmit = FALSE;
 	}
